@@ -49,9 +49,9 @@
         <div class="guide-item" data-guide-step="2"><span class="guide-number">02 · Look at Browser attention</span><b>Scroll to re-engage</b><p>Scroll anywhere on the page. The tracker returns to ENGAGED and the five-second window restarts.</p></div>
         <div class="guide-item" data-guide-step="3"><span class="guide-number">03 · Look at the Amplitude heartbeat service</span><b>Send the next snapshot</b><p>Advance 15 seconds. The service replaces the pending Page Viewed with its latest cumulative engaged time.</p></div>
         <div class="guide-item" data-guide-step="4"><span class="guide-number">04 · Choose one ending</span><b>Navigate—or remain inactive</b><p>These paths are alternatives. Navigation attempts immediate finalization; two-hour inactivity is the expiry fallback.</p></div>
-        <div class="guide-item" data-guide-step="5"><span class="guide-number">05 · Look at the Amplitude ingestion service</span><b>Confirm the final event</b><p>Amplitude receives exactly one Page Viewed with its final engaged time attached.</p></div>
+        <div class="guide-item" data-guide-step="5"><span class="guide-number">05 · Compare the old and new views</span><b>One finalized + one new</b><p>Navigation starts the next page immediately. After expiry, simulate returning at hour three to create a new Page View for the same URL.</p></div>
       </div>
-      <div class="demo-actions"><button id="advance-heartbeat" disabled>Advance 15s · send heartbeat</button><button id="simulate-navigation" disabled data-tip="Simulates pagehide/beforeunload. The SDK attempts a final cumulative snapshot and immediate finalize. Delivery is best-effort: Chartbeat reports about 68% success for its unload mechanisms. On same-site navigation, Chartbeat can store the previous pinger state on the client and resend it from a later page.">Navigate to Article B</button><button id="advance-expiry" disabled>Advance 2h · expire Article A</button><span class="demo-note">At Step 4, choose only one completion path.</span></div>
+      <div class="demo-actions"><button id="advance-heartbeat" disabled>Advance 15s · send heartbeat</button><button id="simulate-navigation" disabled data-tip="Simulates pagehide/beforeunload. The SDK attempts a final cumulative snapshot and immediate finalize. Delivery is best-effort: Chartbeat reports about 68% success for its unload mechanisms. On same-site navigation, Chartbeat can store the previous pinger state on the client and resend it from a later page.">Navigate to Article B</button><button id="advance-expiry" disabled>Advance 2h · expire Article A</button><button id="return-after-expiry" hidden>Return after 3h · same Article A</button><span class="demo-note" id="demo-note">At Step 4, choose only one completion path.</span></div>
     </section>
 
     <div class="status-caption"><h2>Live state of this simulated page visit</h2><p>These values update in your browser only</p></div>
@@ -81,12 +81,12 @@
     </section>
 
     <section class="tables">
-      <div class="panel" id="ingestion-service"><div class="panel-head"><h2>3 · Amplitude ingestion service</h2><span class="badge">final destination</span></div><p class="explain">This stays empty while the heartbeat service owns the event. After finalization, ingestion receives that same Page Viewed—with its final engaged-time property attached.</p><table><thead><tr><th>page</th><th>event</th><th>property</th></tr></thead><tbody id="aggregates"></tbody></table></div>
+      <div class="panel" id="ingestion-service"><div class="panel-head"><h2>3 · Amplitude ingestion service</h2><span class="badge">final destination</span></div><p class="explain" id="journey-summary">One logical Page View exists and is still pending.</p><table><thead><tr><th>page</th><th>event</th><th>property</th></tr></thead><tbody id="aggregates"></tbody></table></div>
     </section>
 
     <section class="end-paths" aria-label="Mutually exclusive completion paths">
       <div class="end-path"><span class="path-tag">PATH A · NAVIGATION</span><h3>The page ends explicitly</h3><p>On <code>pagehide</code>/<code>beforeunload</code>, the SDK attempts one final cumulative snapshot and asks the service to finalize immediately. Delivery is not guaranteed. Chartbeat reports about <strong>68% success</strong> for its combined unload mechanisms. For same-site navigation, Chartbeat stores the previous pinger state on the client for up to an hour and can resend it when another page on the domain loads Chartbeat. Whether the Amplitude SDK should add that client-side handoff remains an open design question. <a href="https://help.chartbeat.com/hc/en-us/articles/360045890913-User-Engagement-Tracking-Methodology">Chartbeat methodology ↗</a></p></div>
-      <div class="end-path"><span class="path-tag">PATH B · INACTIVITY</span><h3>The page remains open but inactive</h3><p>After two continuous hours without qualifying engagement, the client finalizes if its timer is running. If the browser suspended the client, the delayed service timeout finalizes the latest successful snapshot. This is an alternative fallback path—not a second finalization after navigation succeeds.</p></div>
+      <div class="end-path"><span class="path-tag">PATH B · INACTIVITY</span><h3>The page remains open but inactive</h3><p>After two continuous hours without qualifying engagement, the client finalizes if its timer is running. If the browser suspended the client, the delayed service timeout finalizes the latest successful snapshot. Returning at hour three creates a second logical Page View—even in the same tab and at the same URL—with new <code>page_view_id</code>, <code>insert_id</code>, timestamp, and zeroed counters.</p></div>
     </section>
 
     <section class="architecture"><div class="kicker">Proposed data path</div><h2>Delay and enrich the original event</h2><div class="flow"><div class="box"><b>① Browser SDK</b><p>Sends Page Viewed once to the heartbeat service, then sends engagement heartbeats carrying the current cumulative duration.</p></div><div class="arrow">→</div><div class="box"><b>② Amplitude heartbeat service</b><p>Holds the original event and updates its pending engaged-time property. Navigation, lifecycle end, or the two-hour expiry finalizes it.</p></div><div class="arrow">→</div><div class="box"><b>③ Amplitude ingestion service</b><p>Receives that same Page Viewed event with <code>engaged_time_seconds</code> attached. No separate engaged-time event.</p></div></div></section>
@@ -99,11 +99,11 @@
     (() => {
       const $ = id => document.getElementById(id);
       const CHECKPOINT_MS = 15000, WINDOW_MS = 5000, EXPIRY_MS = 2 * 60 * 60 * 1000;
-      let pageIndex = 0, pageId = crypto.randomUUID(), focused = true, lastActivity = performance.now();
+      let pageIndex = 0, visitNumber = 1, pageId = crypto.randomUUID(), focused = true, lastActivity = performance.now();
       let insertId = crypto.randomUUID(), startedAt = Date.now(), engaged = 0, foreground = 0, total = 0, snapshotVersion = 0;
       let lastTick = performance.now(), lastCheckpoint = performance.now(), finalized = false, guideStage = 1, lastSnapshotEngaged = null;
       const events = [], forwarded = [];
-      const pageName = () => pageIndex ? 'Article B' : 'Article A';
+      const pageName = () => pageIndex ? 'Article B' : visitNumber > 1 ? 'Article A · visit 2' : 'Article A';
       const fmt = ms => `${(ms / 1000).toFixed(1)}s`;
       function addEvent(operation, trigger = '—', kind = 'instant', version = '—') {
         events.unshift({ at: new Date().toLocaleTimeString([], {minute:'2-digit',second:'2-digit'}), operation, trigger, kind, version, page: pageName(), engaged });
@@ -127,20 +127,28 @@
         setGuide(5);
       }
       function activity() { if (!focused || finalized) return; lastActivity = performance.now(); }
-      function startNextPage() {
-        pageIndex = 1;
+      function startNewPage(nextPageIndex, trigger) {
+        pageIndex = nextPageIndex; visitNumber += 1;
         pageId = crypto.randomUUID(); insertId = crypto.randomUUID(); startedAt = Date.now();
         engaged = 0; foreground = 0; total = 0; snapshotVersion = 0; lastSnapshotEngaged = null;
         finalized = false; lastActivity = performance.now(); lastCheckpoint = performance.now(); lastTick = performance.now();
-        addEvent('Create pending Page Viewed', 'Article B loaded after navigation', 'instant', 'original');
+        addEvent('Create pending Page Viewed', trigger, 'instant', 'original');
         $('segment-node').classList.remove('done');
         $('forward-node').classList.remove('done');
       }
       function navigateToNextPage() {
         if (finalized) return;
         finalize('navigation · final delivery succeeded');
-        startNextPage();
+        startNewPage(1, 'Article B loaded after navigation');
+        $('demo-note').textContent = 'Article A is finalized; Article B is a new pending Page Viewed.';
         $('ingestion-service').scrollIntoView({behavior:'smooth', block:'center'});
+      }
+      function returnAfterExpiry() {
+        if (!finalized) return;
+        startNewPage(0, 'same tab returned after the 2h boundary');
+        $('return-after-expiry').hidden = true;
+        $('demo-note').textContent = 'Two logical views now exist: visit 1 finalized, visit 2 pending with new IDs.';
+        $('holding-service').scrollIntoView({behavior:'smooth', block:'center'});
       }
       function setGuide(stage) {
         if (guideStage === stage) return;
@@ -172,6 +180,10 @@
         $('pending-count').textContent = finalized ? '0 pending events' : '1 pending event';
         $('holding-service').hidden = finalized; $('record-explanation').hidden = finalized; $('service-log').hidden = finalized; $('heartbeat-empty').hidden = !finalized;
         $('page-name').textContent = pageName(); $('page-id-short').textContent = pageId.slice(0, 8); $('event-count').textContent = `${events.length} service update${events.length === 1 ? '' : 's'}`;
+        const logicalViews = forwarded.length + (finalized ? 0 : 1);
+        $('journey-summary').innerHTML = logicalViews === 1
+          ? finalized ? '<strong>1 logical Page View:</strong> finalized after inactivity.' : '<strong>1 logical Page View:</strong> currently pending.'
+          : `<strong>${logicalViews} logical Page Views:</strong> ${forwarded.length} finalized in ingestion + 1 new pending view with different IDs.`;
         $('events').innerHTML = events.slice(0, 8).map(e => `<tr><td>${e.at}</td><td>${e.page}</td><td class="event-name ${e.kind}">${e.operation}</td><td>${e.trigger}</td><td>${fmt(e.engaged)}</td><td>${e.version}</td></tr>`).join('');
         $('aggregates').innerHTML = forwarded.length ? forwarded.map(e => `<tr><td>${e.page}<br><small>page ${e.id.slice(0,8)} · insert ${e.insertId.slice(0,8)}</small></td><td class="event-name">[Amplitude] Page Viewed</td><td>[Amplitude] Engaged Time: ${Math.round(e.engaged)}ms<br><small>Total ${fmt(e.total)} · Foreground ${fmt(e.foreground)} · v${e.snapshotVersion} · ${e.reason}<br>original time ${new Date(e.startedAt).toLocaleTimeString()}</small></td></tr>`).join('') : '<tr><td colspan="3" class="empty">No event until Page Viewed is finalized</td></tr>';
       }
@@ -191,10 +203,10 @@
       ['mousemove','keydown','touchstart'].forEach(type => document.addEventListener(type, activity, {passive:true}));
       $('advance-heartbeat').addEventListener('click', () => { checkpoint('simulated +15s'); $('holding-service').scrollIntoView({behavior:'smooth', block:'center'}); });
       $('simulate-navigation').addEventListener('click', navigateToNextPage);
-      $('advance-expiry').addEventListener('click', () => { total += 2 * 60 * 60 * 1000; finalize('2h inactivity timeout'); $('ingestion-service').scrollIntoView({behavior:'smooth', block:'center'}); });
+      $('advance-expiry').addEventListener('click', () => { total += 2 * 60 * 60 * 1000; finalize('2h inactivity timeout'); $('return-after-expiry').hidden = false; $('demo-note').textContent = 'Visit 1 expired. Now simulate the same tab returning at hour three.'; $('ingestion-service').scrollIntoView({behavior:'smooth', block:'center'}); });
+      $('return-after-expiry').addEventListener('click', returnAfterExpiry);
       addEvent('Create pending Page Viewed', 'page load', 'instant', 'original'); $('browser-panel').classList.add('look-here'); requestAnimationFrame(tick);
     })();
   </script>
 </body>
 </html>
-
