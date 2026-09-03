@@ -11,9 +11,9 @@
     header{padding:38px 0 28px;border-bottom:1px solid var(--ink)}.kicker{font:600 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}h1{font-size:clamp(42px,6vw,76px);line-height:.95;letter-spacing:-.055em;max-width:900px;margin:16px 0 20px}header>p{max-width:760px;color:#414943;font-size:18px;line-height:1.55}
     .principle{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.principle span{border:1px solid var(--ink);border-radius:99px;padding:7px 11px;font:11px var(--mono)}
     main{padding:34px 0 70px}.orientation{display:grid;grid-template-columns:.8fr 1.2fr;border:1px solid var(--ink);margin-bottom:22px;background:var(--card)}.orientation-copy{padding:24px;background:var(--acid)}.orientation-copy h2{font-size:28px;letter-spacing:-.03em;margin:8px 0 12px}.orientation-copy p{font-size:14px;line-height:1.55;margin:0;max-width:42ch}.orientation-steps{display:grid;grid-template-columns:repeat(3,1fr);padding:24px;gap:18px}.orientation-step{position:relative;padding-left:34px}.orientation-step b{display:block;font-size:13px;margin-bottom:6px}.orientation-step p{color:var(--muted);font-size:12px;line-height:1.45;margin:0}.step-number{position:absolute;left:0;top:0;width:24px;height:24px;display:grid;place-items:center;border:1px solid var(--ink);border-radius:50%;font:11px var(--mono)}
-    .live-guide{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:16px;padding:17px 18px;margin-bottom:22px;border:1px solid #bbb2ff;background:#e8e4ff}.live-guide.complete{border-color:#9bb43e;background:var(--acid)}.guide-label{padding:6px 9px;border-radius:99px;background:var(--purple);color:#fff;font:10px var(--mono);text-transform:uppercase;white-space:nowrap}.complete .guide-label{background:var(--ink)}.guide-copy strong{display:block;font-size:14px;margin-bottom:3px}.guide-copy small{display:block;color:#5e596f;font-size:12px;line-height:1.4}.guide-progress{display:flex;gap:6px}.guide-progress i{width:9px;height:9px;border:1px solid var(--ink);border-radius:50%;background:transparent}.guide-progress i.done{background:var(--purple)}.complete .guide-progress i{background:var(--ink)}
+    .live-guide{padding:20px;margin-bottom:22px;border:1px solid var(--ink);background:var(--card)}.guide-head{display:flex;justify-content:space-between;gap:16px;align-items:end;margin-bottom:14px}.guide-head h2{font-size:20px;margin:5px 0 0}.guide-head p{font:10px var(--mono);color:var(--muted);margin:0}.guide-list{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.guide-item{min-height:134px;padding:14px;border:1px solid var(--line);background:var(--paper);transition:background .2s,border-color .2s,transform .2s}.guide-item.current{background:var(--acid);border-color:var(--ink);transform:translateY(-3px);box-shadow:0 4px 0 var(--ink)}.guide-item.done{background:#eef4dc}.guide-item .guide-number{display:block;font:10px var(--mono);color:var(--muted);margin-bottom:16px}.guide-item.current .guide-number{color:var(--ink)}.guide-item b{display:block;font-size:13px;margin-bottom:6px}.guide-item p{font-size:11px;line-height:1.45;color:var(--muted);margin:0}.guide-item.current p{color:#39402f}.demo-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}button{font:600 11px var(--mono);padding:10px 12px;border:1px solid var(--ink);background:var(--card);cursor:pointer}button:hover,button:focus-visible{background:var(--acid)}button:disabled{cursor:default;opacity:.45;background:#e9ebe6}.demo-note{align-self:center;font-size:11px;color:var(--muted)}
     .status-caption{display:flex;justify-content:space-between;gap:16px;align-items:end;margin:0 0 9px}.status-caption h2{font-size:16px;margin:0}.status-caption p{font:10px var(--mono);color:var(--muted);margin:0}.status{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--ink);background:var(--ink);gap:1px}.stat{background:var(--card);padding:18px}.stat label{display:block;color:var(--muted);font:10px var(--mono);text-transform:uppercase;margin-bottom:8px}.stat strong{font:600 27px var(--mono)}.stat strong.live{color:#527d00}.stat strong.idle{color:#b63a1e}.stat small{display:block;color:var(--muted);font-size:10px;line-height:1.35;margin-top:8px}
-    .workspace{display:grid;grid-template-columns:.95fr 1.05fr;gap:22px;margin-top:22px}.panel{border:1px solid var(--line);background:var(--card);padding:22px}.panel-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:20px}.panel h2{font-size:20px;margin:0}.badge{padding:5px 8px;border-radius:99px;background:#e9ebe6;font:10px var(--mono)}
+    .workspace{display:grid;grid-template-columns:.95fr 1.05fr;gap:22px;margin-top:22px}.panel{border:1px solid var(--line);background:var(--card);padding:22px}.panel-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:20px}.panel h2{font-size:20px;margin:0}.badge{padding:5px 8px;border-radius:99px;background:#e9ebe6;font:10px var(--mono)}.look-here{outline:4px solid var(--purple);outline-offset:4px}
     .clock{height:210px;position:relative;display:grid;place-items:center;background:var(--ink);color:#fff;overflow:hidden}.clock:before{content:'';position:absolute;inset:0;background:linear-gradient(#ffffff12 1px,transparent 1px),linear-gradient(90deg,#ffffff12 1px,transparent 1px);background-size:32px 32px}.ring{position:relative;width:145px;height:145px;border:12px solid #3b423c;border-radius:50%;display:grid;place-items:center}.ring:after{content:'';position:absolute;inset:-12px;border:12px solid var(--acid);border-radius:50%;clip-path:polygon(0 0,50% 0,50% 50%,0 50%)}.ring span{font:600 35px var(--mono)}.clock-note{position:absolute;left:14px;bottom:12px;color:#abb2ac;font:10px var(--mono)}
     .timeline{display:flex;align-items:center;gap:0;margin:22px 0 8px}.node{width:94px;text-align:center;font:10px var(--mono)}.dot{width:16px;height:16px;border:3px solid var(--ink);background:var(--card);border-radius:50%;margin:0 auto 7px}.node.done .dot{background:var(--acid)}.line{height:2px;background:var(--ink);flex:1;margin-top:-18px}.explain{font-size:14px;color:var(--muted);line-height:1.55;margin:18px 0 0}
     .query{background:#e8e4ff;border:1px solid #bbb2ff;padding:16px;margin-top:16px}.query code{font:12px/1.6 var(--mono)}.query strong{display:block;margin-top:8px;font:600 20px var(--mono)}
@@ -21,8 +21,8 @@
     .architecture{margin-top:22px;padding:26px;border:1px solid var(--ink)}.architecture h2{margin:0 0 22px}.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:14px;align-items:center}.box{min-height:120px;padding:15px;border:1px solid var(--ink)}.box:nth-child(1){background:var(--blue)}.box:nth-child(3){background:var(--acid)}.box:nth-child(5){background:#e8e4ff}.box b{display:block;margin-bottom:10px}.box p{font-size:12px;margin:0;color:#3f4741}.arrow{font:24px var(--mono)}
     .tradeoff{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);margin-top:22px;border:1px solid var(--line)}.tradeoff div{background:var(--card);padding:20px}.tradeoff h3{margin:0 0 8px;font-size:15px}.tradeoff p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}.good h3{color:#4e7400}.cost h3{color:#a74228}
     footer{display:flex;justify-content:space-between;gap:20px;padding:22px 0 34px;border-top:1px solid var(--line);font:11px var(--mono);color:var(--muted)}footer a{color:inherit}
-    @media(max-width:800px){.orientation{grid-template-columns:1fr}.orientation-steps{grid-template-columns:1fr}.live-guide{grid-template-columns:auto 1fr}.guide-progress{grid-column:2}.status{grid-template-columns:1fr 1fr}.workspace,.tables{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.arrow{transform:rotate(90deg);text-align:center}.tradeoff{grid-template-columns:1fr}}
-    @media(max-width:480px){header{padding-top:26px}.live-guide{grid-template-columns:1fr}.guide-progress{grid-column:1}.guide-label{width:max-content}.status{grid-template-columns:1fr 1fr}.stat{padding:13px}.stat strong{font-size:20px}.panel{padding:14px}.timeline .node{width:68px}.principle span{font-size:9px}footer{flex-direction:column}}
+    @media(max-width:800px){.orientation{grid-template-columns:1fr}.orientation-steps{grid-template-columns:1fr}.guide-list{grid-template-columns:1fr}.guide-item{min-height:0}.guide-item .guide-number{margin-bottom:8px}.status{grid-template-columns:1fr 1fr}.workspace,.tables{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.arrow{transform:rotate(90deg);text-align:center}.tradeoff{grid-template-columns:1fr}}
+    @media(max-width:480px){header{padding-top:26px}.guide-head{align-items:start;flex-direction:column}.status{grid-template-columns:1fr 1fr}.stat{padding:13px}.stat strong{font-size:20px}.panel{padding:14px}.timeline .node{width:68px}.principle span{font-size:9px}footer{flex-direction:column}}
   </style>
 </head>
 <body>
@@ -43,42 +43,48 @@
       </div>
     </section>
 
-    <section class="live-guide" id="live-guide" aria-live="polite" aria-label="Interactive engagement guide">
-      <span class="guide-label" id="guide-label">Step 1 of 3</span>
-      <div class="guide-copy" id="guide-copy"><strong>First, stop interacting for five seconds.</strong><small>Watch the activity window count down. Engaged time stops when the tracker becomes idle.</small></div>
-      <span class="guide-progress" aria-hidden="true"><i class="done"></i><i></i><i></i></span>
+    <section class="live-guide" id="live-guide" aria-label="Interactive engagement guide">
+      <div class="guide-head"><div><div class="kicker">Follow the live proposal</div><h2>See the full lifecycle in five steps</h2></div><p id="guide-status" aria-live="polite">Current · Step 1</p></div>
+      <div class="guide-list">
+        <div class="guide-item current" data-guide-step="1"><span class="guide-number">01 · Look at the Browser SDK clock</span><b>Let attention expire</b><p>Stop interacting for five seconds. The activity window reaches zero and engaged time pauses.</p></div>
+        <div class="guide-item" data-guide-step="2"><span class="guide-number">02 · Look at Browser attention</span><b>Scroll to re-engage</b><p>Scroll anywhere on the page. The tracker returns to ENGAGED and the five-second window restarts.</p></div>
+        <div class="guide-item" data-guide-step="3"><span class="guide-number">03 · Look at the Amplitude holding service</span><b>Send the next snapshot</b><p>Advance 60 seconds to add a heartbeat snapshot to the pending service record.</p></div>
+        <div class="guide-item" data-guide-step="4"><span class="guide-number">04 · Look at Delayed service</span><b>Simulate inactivity expiry</b><p>Advance two hours without waiting. The holding service finalizes the pending Page Viewed.</p></div>
+        <div class="guide-item" data-guide-step="5"><span class="guide-number">05 · Look at the Amplitude ingestion service</span><b>Confirm the final event</b><p>Amplitude receives exactly one Page Viewed with its final engaged time attached.</p></div>
+      </div>
+      <div class="demo-actions"><button id="advance-heartbeat" disabled>Advance 60s · send heartbeat</button><button id="advance-expiry" disabled>Advance 2h · finalize event</button><span class="demo-note">Demo controls change simulated time only.</span></div>
     </section>
 
     <div class="status-caption"><h2>Live state of this simulated page visit</h2><p>These values update in your browser only</p></div>
-    <section class="status" aria-label="Live tracker status">
+    <section class="status" id="live-status" aria-label="Live tracker status">
       <div class="stat"><label>browser attention</label><strong id="state" class="live">ENGAGED</strong><small>Is the user active right now?</small></div>
       <div class="stat"><label>measured so far</label><strong id="engaged">0.0s</strong><small>Cumulative active-attention time</small></div>
-      <div class="stat"><label>delayed service</label><strong id="service-state">PENDING</strong><small>Held until the page visit ends</small></div>
+      <div class="stat"><label>holding service</label><strong id="service-state">PENDING</strong><small>Held until the page visit ends</small></div>
       <div class="stat"><label>next snapshot</label><strong id="checkpoint">60.0s</strong><small>Heartbeat cadence in this proposal</small></div>
     </section>
 
     <section class="workspace">
-      <div class="panel">
+      <div class="panel" id="browser-panel">
         <div class="panel-head"><h2>1 · What happens in the browser</h2><span class="badge" id="page-name">Article A</span></div>
         <div class="clock"><div class="ring"><span id="window">5.0</span></div><div class="clock-note">activity window remaining</div></div>
         <p class="explain">Mouse, scroll, click, touch, keyboard, load, and focus renew a five-second window. The clock pauses when this tab or browser loses focus. This simulation records a heartbeat every 60 seconds and finalizes the visit after two hours of inactivity.</p>
       </div>
 
       <div class="panel">
-        <div class="panel-head"><h2>2 · What the service is holding</h2><span class="badge">live simulation</span></div>
+        <div class="panel-head"><h2>2 · Amplitude holding service state</h2><span class="badge">live simulation</span></div>
         <div class="timeline"><div class="node done"><div class="dot"></div>Page Viewed<br>buffered</div><div class="line"></div><div class="node" id="segment-node"><div class="dot"></div>Heartbeats<br>update</div><div class="line"></div><div class="node" id="forward-node"><div class="dot"></div>Page Viewed<br>forwarded</div></div>
-        <div class="query"><code>Delayed service<br>page_view_id = <span id="page-id-short"></span></code><strong id="query-status">Pending · not in Amplitude yet</strong></div>
+        <div class="query"><code>Amplitude holding service<br>page_view_id = <span id="page-id-short"></span></code><strong id="query-status">Pending · not in ingestion yet</strong></div>
         <div class="query"><code>Page Viewed.event_properties<br>.engaged_time_seconds</code><strong id="metric">Waiting for finalization</strong></div>
         <p class="explain"><strong>No new analytics event is created.</strong> Each heartbeat replaces the pending snapshot using stable IDs and preserves the original event timestamp. After finalization, Amplitude receives exactly one enriched Page Viewed event.</p>
       </div>
     </section>
 
     <section class="tables">
-      <div class="panel"><div class="panel-head"><h2>3 · Messages to the service</h2><span class="badge" id="event-count">1 message</span></div><p class="explain">A technical log of the initial event, snapshots, and finalization. These rows are transport messages—not extra Amplitude events.</p><table><thead><tr><th>at</th><th>message</th><th>value</th></tr></thead><tbody id="events"></tbody></table></div>
-      <div class="panel"><div class="panel-head"><h2>4 · What Amplitude receives</h2><span class="badge">final output</span></div><p class="explain">This stays empty while the service is holding the event. Finalize the visit to see the single enriched output.</p><table><thead><tr><th>page</th><th>event</th><th>property</th></tr></thead><tbody id="aggregates"></tbody></table></div>
+      <div class="panel" id="holding-service"><div class="panel-head"><h2>3 · Amplitude holding service</h2><span class="badge" id="event-count">1 record</span></div><p class="explain">This temporary service record shows the original event, heartbeat snapshots, and finalization. These rows are service updates—not extra Amplitude analytics events.</p><table><thead><tr><th>at</th><th>service update</th><th>value</th></tr></thead><tbody id="events"></tbody></table></div>
+      <div class="panel" id="ingestion-service"><div class="panel-head"><h2>4 · Amplitude ingestion service</h2><span class="badge">final destination</span></div><p class="explain">This stays empty while the holding service owns the event. After finalization, ingestion receives the single enriched Page Viewed.</p><table><thead><tr><th>page</th><th>event</th><th>property</th></tr></thead><tbody id="aggregates"></tbody></table></div>
     </section>
 
-    <section class="architecture"><div class="kicker">Proposed data path</div><h2>Delay and enrich the original event</h2><div class="flow"><div class="box"><b>① Browser SDK</b><p>Sends Page Viewed once to the delayed service, then sends engagement heartbeats carrying the current cumulative duration.</p></div><div class="arrow">→</div><div class="box"><b>② Delayed-event service</b><p>Holds the original event and updates its pending engaged-time property. Navigation, lifecycle end, or the two-hour expiry finalizes it.</p></div><div class="arrow">→</div><div class="box"><b>③ Amplitude ingestion</b><p>Receives one Page Viewed event with <code>engaged_time_seconds</code> attached as an event property. No separate engaged-time event.</p></div></div></section>
+    <section class="architecture"><div class="kicker">Proposed data path</div><h2>Delay and enrich the original event</h2><div class="flow"><div class="box"><b>① Browser SDK</b><p>Sends Page Viewed once to the holding service, then sends engagement heartbeats carrying the current cumulative duration.</p></div><div class="arrow">→</div><div class="box"><b>② Amplitude holding service</b><p>Holds the original event and updates its pending engaged-time property. Navigation, lifecycle end, or the two-hour expiry finalizes it.</p></div><div class="arrow">→</div><div class="box"><b>③ Amplitude ingestion service</b><p>Receives one Page Viewed event with <code>engaged_time_seconds</code> attached as an event property. No separate engaged-time event.</p></div></div></section>
 
     <section class="tradeoff"><div class="good"><h3>What this proposal buys</h3><p>A single canonical Page Viewed event, final engaged time attached to the correct page, active-attention semantics, and final-page recovery from the latest stored snapshot.</p></div><div class="cost"><h3>Unresolved product costs</h3><p>Open Page Viewed events are absent from ordinary queries, funnels, and session construction. Production work still needs ordering, BFCache, suspension, offline, multi-tab, shared-heartbeat, and first-class metric decisions.</p></div></section>
   </main>
@@ -104,6 +110,7 @@
         snapshotVersion += 1;
         addEvent('Heartbeat snapshot', `v${snapshotVersion} · ${fmt(engaged)} engaged · ${reason}`, 'segment');
         $('segment-node').classList.add('done');
+        if (guideStage === 3) setGuide(4);
       }
       function finalize(reason) {
         if (finalized) return;
@@ -111,19 +118,23 @@
         forwarded.unshift({page:pageName(), id:pageId, insertId, startedAt, engaged, foreground, total, reason, snapshotVersion});
         addEvent('Finalize pending Page Viewed', reason, 'instant');
         $('forward-node').classList.add('done');
+        setGuide(5);
       }
       function activity() { if (!focused) return; lastActivity = performance.now(); }
       function setGuide(stage) {
         if (guideStage === stage) return;
         guideStage = stage;
-        const copy = {
-          2: ['Step 2 of 3', '<strong>Now scroll the page.</strong><small>Scrolling is a real activity signal. It renews the five-second window and restarts engaged-time measurement.</small>'],
-          3: ['Step 3 of 3', '<strong>Engagement restarted—no special control needed.</strong><small>The tracker continues automatically. A heartbeat later updates the pending Page Viewed event with the new cumulative total.</small>']
-        }[stage];
-        if (!copy) return;
-        $('guide-label').textContent = copy[0]; $('guide-copy').innerHTML = copy[1];
-        $('live-guide').classList.toggle('complete', stage === 3);
-        document.querySelectorAll('.guide-progress i').forEach((dot, index) => dot.classList.toggle('done', index < stage));
+        document.querySelectorAll('.guide-item').forEach(item => {
+          const itemStage = Number(item.dataset.guideStep);
+          item.classList.toggle('current', itemStage === stage);
+          item.classList.toggle('done', itemStage < stage);
+        });
+        document.querySelectorAll('.look-here').forEach(item => item.classList.remove('look-here'));
+        const target = stage === 1 ? $('browser-panel') : stage === 2 ? $('live-status') : stage === 3 ? $('holding-service') : stage === 4 ? $('live-status') : $('ingestion-service');
+        target.classList.add('look-here');
+        $('guide-status').textContent = `Current · Step ${stage}`;
+        $('advance-heartbeat').disabled = stage !== 3;
+        $('advance-expiry').disabled = stage !== 4;
       }
       function render() {
         const now = performance.now(), remaining = Math.max(0, WINDOW_MS - (now - lastActivity));
@@ -131,9 +142,9 @@
         $('state').textContent = active ? 'ENGAGED' : focused ? 'IDLE' : 'HIDDEN'; $('state').className = active ? 'live' : 'idle';
         $('engaged').textContent = fmt(engaged); $('service-state').textContent = finalized ? 'FORWARDED' : 'PENDING'; $('window').textContent = (remaining / 1000).toFixed(1);
         $('checkpoint').textContent = fmt(Math.max(0, CHECKPOINT_MS - (now - lastCheckpoint)));
-        $('query-status').textContent = finalized ? 'Forwarded to Amplitude' : 'Pending · not in Amplitude yet';
+        $('query-status').textContent = finalized ? 'Forwarded to ingestion' : 'Pending · not in ingestion yet';
         $('metric').textContent = finalized ? `${(engaged/1000).toFixed(1)} seconds` : 'Waiting for finalization';
-        $('page-name').textContent = pageName(); $('page-id-short').textContent = pageId.slice(0, 8); $('event-count').textContent = `${events.length} event${events.length === 1 ? '' : 's'}`;
+        $('page-name').textContent = pageName(); $('page-id-short').textContent = pageId.slice(0, 8); $('event-count').textContent = `${events.length} service update${events.length === 1 ? '' : 's'}`;
         $('events').innerHTML = events.slice(0, 8).map(e => `<tr><td>${e.at}</td><td class="event-name ${e.kind}">${e.name}</td><td>${e.value}</td></tr>`).join('');
         $('aggregates').innerHTML = forwarded.length ? forwarded.map(e => `<tr><td>${e.page}<br><small>page ${e.id.slice(0,8)} · insert ${e.insertId.slice(0,8)}</small></td><td class="event-name">[Amplitude] Page Viewed</td><td>[Amplitude] Engaged Time: ${Math.round(e.engaged)}ms<br><small>Total ${fmt(e.total)} · Foreground ${fmt(e.foreground)} · v${e.snapshotVersion} · ${e.reason}<br>original time ${new Date(e.startedAt).toLocaleTimeString()}</small></td></tr>`).join('') : '<tr><td colspan="3" class="empty">No event until Page Viewed is finalized</td></tr>';
       }
@@ -150,7 +161,9 @@
       window.addEventListener('pagehide', () => finalize('page lifecycle end'));
       document.addEventListener('scroll', () => { if (guideStage === 2) setGuide(3); activity(); }, {passive:true});
       ['mousemove','keydown','touchstart'].forEach(type => document.addEventListener(type, activity, {passive:true}));
-      addEvent('Page Viewed → delayed service', 'original event buffered', 'instant'); requestAnimationFrame(tick);
+      $('advance-heartbeat').addEventListener('click', () => { checkpoint('simulated +60s'); $('holding-service').scrollIntoView({behavior:'smooth', block:'center'}); });
+      $('advance-expiry').addEventListener('click', () => { total += 2 * 60 * 60 * 1000; finalize('2h inactivity timeout'); $('ingestion-service').scrollIntoView({behavior:'smooth', block:'center'}); });
+      addEvent('Page Viewed → holding service', 'original event buffered', 'instant'); $('browser-panel').classList.add('look-here'); requestAnimationFrame(tick);
     })();
   </script>
 </body>
