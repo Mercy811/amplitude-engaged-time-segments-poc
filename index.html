@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Interactive POC for queryable Page Viewed events with append-only engaged-time segments.">
+  <title>Engaged Time Segments POC</title>
+  <style>
+    :root{--ink:#151a17;--paper:#f3f0e8;--card:#fffdf7;--line:#c8cec4;--muted:#667068;--acid:#d8ff63;--purple:#7467ff;--orange:#ff7043;--blue:#8ed8ff;--mono:ui-monospace,SFMono-Regular,Menlo,monospace;--sans:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    *{box-sizing:border-box}html{background:var(--paper);color:var(--ink);font-family:var(--sans)}body{margin:0}.shell{width:min(1180px,calc(100% - 32px));margin:auto}
+    header{padding:38px 0 28px;border-bottom:1px solid var(--ink)}.kicker{font:600 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}h1{font-size:clamp(42px,6vw,76px);line-height:.95;letter-spacing:-.055em;max-width:900px;margin:16px 0 20px}header>p{max-width:760px;color:#414943;font-size:18px;line-height:1.55}
+    .principle{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.principle span{border:1px solid var(--ink);border-radius:99px;padding:7px 11px;font:11px var(--mono)}
+    main{padding:34px 0 70px}.status{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--ink);background:var(--ink);gap:1px}.stat{background:var(--card);padding:18px}.stat label{display:block;color:var(--muted);font:10px var(--mono);text-transform:uppercase;margin-bottom:8px}.stat strong{font:600 27px var(--mono)}.stat strong.live{color:#527d00}.stat strong.idle{color:#b63a1e}
+    .workspace{display:grid;grid-template-columns:.95fr 1.05fr;gap:22px;margin-top:22px}.panel{border:1px solid var(--line);background:var(--card);padding:22px}.panel-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:20px}.panel h2{font-size:20px;margin:0}.badge{padding:5px 8px;border-radius:99px;background:#e9ebe6;font:10px var(--mono)}
+    .clock{height:210px;position:relative;display:grid;place-items:center;background:var(--ink);color:#fff;overflow:hidden}.clock:before{content:'';position:absolute;inset:0;background:linear-gradient(#ffffff12 1px,transparent 1px),linear-gradient(90deg,#ffffff12 1px,transparent 1px);background-size:32px 32px}.ring{position:relative;width:145px;height:145px;border:12px solid #3b423c;border-radius:50%;display:grid;place-items:center}.ring:after{content:'';position:absolute;inset:-12px;border:12px solid var(--acid);border-radius:50%;clip-path:polygon(0 0,50% 0,50% 50%,0 50%)}.ring span{font:600 35px var(--mono)}.clock-note{position:absolute;left:14px;bottom:12px;color:#abb2ac;font:10px var(--mono)}
+    .controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}button{font:600 12px var(--mono);padding:11px;border:1px solid var(--ink);background:transparent;cursor:pointer}button.primary{background:var(--ink);color:#fff}button:hover{background:var(--acid);color:var(--ink)}
+    .timeline{display:flex;align-items:center;gap:0;margin:22px 0 8px}.node{width:94px;text-align:center;font:10px var(--mono)}.dot{width:16px;height:16px;border:3px solid var(--ink);background:var(--card);border-radius:50%;margin:0 auto 7px}.node.done .dot{background:var(--acid)}.line{height:2px;background:var(--ink);flex:1;margin-top:-18px}.explain{font-size:14px;color:var(--muted);line-height:1.55;margin:18px 0 0}
+    .query{background:#e8e4ff;border:1px solid #bbb2ff;padding:16px;margin-top:16px}.query code{font:12px/1.6 var(--mono)}.query strong{display:block;margin-top:8px;font:600 20px var(--mono)}
+    .tables{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:22px}table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--muted);font:10px var(--mono);text-transform:uppercase}.event-name{font-family:var(--mono)}.instant{color:#355c00}.segment{color:#594ac9}.empty{padding:28px 8px;color:var(--muted);text-align:center}
+    .architecture{margin-top:22px;padding:26px;border:1px solid var(--ink)}.architecture h2{margin:0 0 22px}.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:14px;align-items:center}.box{min-height:120px;padding:15px;border:1px solid var(--ink)}.box:nth-child(1){background:var(--blue)}.box:nth-child(3){background:var(--acid)}.box:nth-child(5){background:#e8e4ff}.box b{display:block;margin-bottom:10px}.box p{font-size:12px;margin:0;color:#3f4741}.arrow{font:24px var(--mono)}
+    .tradeoff{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);margin-top:22px;border:1px solid var(--line)}.tradeoff div{background:var(--card);padding:20px}.tradeoff h3{margin:0 0 8px;font-size:15px}.tradeoff p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}.good h3{color:#4e7400}.cost h3{color:#a74228}
+    footer{display:flex;justify-content:space-between;gap:20px;padding:22px 0 34px;border-top:1px solid var(--line);font:11px var(--mono);color:var(--muted)}footer a{color:inherit}
+    @media(max-width:800px){.status{grid-template-columns:1fr 1fr}.workspace,.tables{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.arrow{transform:rotate(90deg);text-align:center}.tradeoff{grid-template-columns:1fr}}
+    @media(max-width:480px){header{padding-top:26px}.status{grid-template-columns:1fr 1fr}.stat{padding:13px}.stat strong{font-size:20px}.panel{padding:14px}.controls{grid-template-columns:1fr}.timeline .node{width:68px}.principle span{font-size:9px}footer{flex-direction:column}}
+  </style>
+</head>
+<body>
+  <header class="shell">
+    <div class="kicker">Solution 4 · append-only segments POC</div>
+    <h1>Queryable now. Complete later.</h1>
+    <p>An alternative engaged-time architecture: send <strong>Page Viewed immediately</strong>, then append small engaged-time delta segments under the same Page View ID. A metric layer sums the segments without mutating or delaying the original event.</p>
+    <div class="principle"><span>5s rolling activity window</span><span>visible + focused only</span><span>15s checkpoints</span><span>append-only ingestion</span><span>stable page_view_id</span></div>
+  </header>
+
+  <main class="shell">
+    <section class="status" aria-label="Live tracker status">
+      <div class="stat"><label>tracker state</label><strong id="state" class="live">ENGAGED</strong></div>
+      <div class="stat"><label>engaged time</label><strong id="engaged">0.0s</strong></div>
+      <div class="stat"><label>unreported delta</label><strong id="pending">0.0s</strong></div>
+      <div class="stat"><label>next checkpoint</label><strong id="checkpoint">15.0s</strong></div>
+    </section>
+
+    <section class="workspace">
+      <div class="panel">
+        <div class="panel-head"><h2>Browser SDK</h2><span class="badge" id="page-name">Article A</span></div>
+        <div class="clock"><div class="ring"><span id="window">5.0</span></div><div class="clock-note">activity window remaining</div></div>
+        <div class="controls">
+          <button class="primary" id="activity">Generate activity</button>
+          <button id="focus">Simulate tab hidden</button>
+          <button id="flush">Checkpoint now</button>
+          <button id="navigate">Navigate to Article B</button>
+        </div>
+        <p class="explain">Mouse, scroll, click, touch, keyboard, load, and focus renew a five-second window. The clock pauses immediately when the tab or browser loses focus. Use the controls to see the state machine change.</p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h2>What Analytics can query</h2><span class="badge">live simulation</span></div>
+        <div class="timeline"><div class="node done"><div class="dot"></div>Page Viewed<br>immediate</div><div class="line"></div><div class="node" id="segment-node"><div class="dot"></div>Segments<br>append</div><div class="line"></div><div class="node"><div class="dot"></div>Metric<br>aggregates</div></div>
+        <div class="query"><code>Page Viewed<br>WHERE page_view_id = <span id="page-id-short"></span></code><strong id="query-status">Queryable at t=0</strong></div>
+        <div class="query"><code>SUM([Amplitude] Engaged Time Segment.engaged_time_ms)<br>GROUP BY page_view_id</code><strong id="metric">0.0s engaged</strong></div>
+        <p class="explain"><strong>The key difference from delayed Page Viewed:</strong> the pageview is available to charts immediately. Segment events update the first-class metric as checkpoints arrive.</p>
+      </div>
+    </section>
+
+    <section class="tables">
+      <div class="panel"><div class="panel-head"><h2>Ingested events</h2><span class="badge" id="event-count">1 event</span></div><table><thead><tr><th>at</th><th>event</th><th>value</th></tr></thead><tbody id="events"></tbody></table></div>
+      <div class="panel"><div class="panel-head"><h2>Metric middleware</h2><span class="badge">dedupe + sum</span></div><table><thead><tr><th>page</th><th>segments</th><th>engaged</th></tr></thead><tbody id="aggregates"></tbody></table></div>
+    </section>
+
+    <section class="architecture"><div class="kicker">Proposed data path</div><h2>Separate page existence from attention updates</h2><div class="flow"><div class="box"><b>① Browser SDK</b><p>Calculates engaged deltas under a stable Page View ID. Emits lifecycle checkpoints on cadence, hide, navigation, and best-effort exit.</p></div><div class="arrow">→</div><div class="box"><b>② Ordinary ingestion</b><p>Accepts an immediate Page Viewed plus idempotent append-only segment events. No two-hour mutable pending record.</p></div><div class="arrow">→</div><div class="box"><b>③ Metric middleware</b><p>Deduplicates segment IDs and sums deltas by Page View ID into a native engaged-time metric.</p></div></div></section>
+
+    <section class="tradeoff"><div class="good"><h3>What this buys</h3><p>Immediate Page Viewed queryability, correct page attribution, active-attention semantics, incremental last-page protection, and a natural real-time metric.</p></div><div class="cost"><h3>What it costs</h3><p>More internal events, aggregation middleware, idempotency rules, and a bounded tail loss after the most recent checkpoint if every exit/replay mechanism fails.</p></div></section>
+  </main>
+  <footer class="shell"><span>Static POC: events and metric middleware are simulated in-browser.</span><a href="https://mercy811.github.io/">Back to Xinyi’s workbench ↗</a></footer>
+
+  <script>
+    (() => {
+      const $ = id => document.getElementById(id);
+      const CHECKPOINT_MS = 15000, WINDOW_MS = 5000;
+      let pageIndex = 0, pageId = crypto.randomUUID(), focused = true, lastActivity = performance.now();
+      let engaged = 0, pending = 0, lastTick = performance.now(), lastCheckpoint = performance.now();
+      const events = [], totals = new Map();
+      const pageName = () => pageIndex ? 'Article B' : 'Article A';
+      const fmt = ms => `${(ms / 1000).toFixed(1)}s`;
+      function addEvent(name, value = '—', kind = 'instant', id = pageId) {
+        events.unshift({ at: new Date().toLocaleTimeString([], {minute:'2-digit',second:'2-digit'}), name, value, kind, id, page: pageName() });
+        render();
+      }
+      function checkpoint(reason = 'cadence') {
+        if (pending < 50) { lastCheckpoint = performance.now(); return; }
+        const delta = pending, segmentId = crypto.randomUUID().slice(0, 8); pending = 0; lastCheckpoint = performance.now();
+        totals.set(pageId, (totals.get(pageId) || 0) + delta);
+        addEvent('[Amplitude] Engaged Time Segment', `${fmt(delta)} · ${reason} · ${segmentId}`, 'segment');
+        $('segment-node').classList.add('done');
+      }
+      function activity() { if (!focused) return; lastActivity = performance.now(); }
+      function navigate() {
+        checkpoint('route change'); pageIndex = pageIndex ? 0 : 1; pageId = crypto.randomUUID(); engaged = 0; pending = 0; lastActivity = performance.now(); lastCheckpoint = performance.now();
+        addEvent('[Amplitude] Page Viewed', 'immediate', 'instant'); $('segment-node').classList.remove('done');
+        $('navigate').textContent = `Navigate to ${pageIndex ? 'Article A' : 'Article B'}`;
+      }
+      function render() {
+        const now = performance.now(), remaining = Math.max(0, WINDOW_MS - (now - lastActivity));
+        const active = focused && remaining > 0;
+        $('state').textContent = active ? 'ENGAGED' : focused ? 'IDLE' : 'HIDDEN'; $('state').className = active ? 'live' : 'idle';
+        $('engaged').textContent = fmt(engaged); $('pending').textContent = fmt(pending); $('window').textContent = (remaining / 1000).toFixed(1);
+        $('checkpoint').textContent = fmt(Math.max(0, CHECKPOINT_MS - (now - lastCheckpoint)));
+        $('metric').textContent = `${fmt(totals.get(pageId) || 0)} reported · ${fmt(engaged)} local`;
+        $('page-name').textContent = pageName(); $('page-id-short').textContent = pageId.slice(0, 8); $('event-count').textContent = `${events.length} event${events.length === 1 ? '' : 's'}`;
+        $('events').innerHTML = events.slice(0, 8).map(e => `<tr><td>${e.at}</td><td class="event-name ${e.kind}">${e.name}</td><td>${e.value}</td></tr>`).join('');
+        const groups = new Map(); events.forEach(e => { if (!groups.has(e.id)) groups.set(e.id, {page:e.page,count:0,total:totals.get(e.id)||0}); if(e.kind==='segment') groups.get(e.id).count++; });
+        $('aggregates').innerHTML = [...groups.entries()].map(([id,g]) => `<tr><td>${g.page}<br><small>${id.slice(0,8)}</small></td><td>${g.count}</td><td>${fmt(g.total)}</td></tr>`).join('');
+      }
+      function tick(now) {
+        const delta = Math.min(300, now - lastTick), active = focused && now - lastActivity < WINDOW_MS; lastTick = now;
+        if (active) { engaged += delta; pending += delta; }
+        if (now - lastCheckpoint >= CHECKPOINT_MS) checkpoint('15s cadence');
+        render(); requestAnimationFrame(tick);
+      }
+      $('activity').addEventListener('click', activity);
+      $('focus').addEventListener('click', () => { focused = !focused; if (focused) activity(); else checkpoint('tab hidden'); $('focus').textContent = focused ? 'Simulate tab hidden' : 'Return to tab'; });
+      $('flush').addEventListener('click', () => checkpoint('manual'));
+      $('navigate').addEventListener('click', navigate);
+      ['mousemove','keydown','scroll','touchstart'].forEach(type => document.addEventListener(type, activity, {passive:true}));
+      addEvent('[Amplitude] Page Viewed', 'immediate', 'instant'); requestAnimationFrame(tick);
+    })();
+  </script>
+</body>
+</html>
