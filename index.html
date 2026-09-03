@@ -16,8 +16,7 @@
     .workspace{display:grid;grid-template-columns:.95fr 1.05fr;gap:22px;margin-top:22px}.panel{border:1px solid var(--line);background:var(--card);padding:22px}.panel-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:20px}.panel h2{font-size:20px;margin:0}.badge{padding:5px 8px;border-radius:99px;background:#e9ebe6;font:10px var(--mono)}.look-here{outline:4px solid var(--purple);outline-offset:4px}
     .clock{height:210px;position:relative;display:grid;place-items:center;background:var(--ink);color:#fff;overflow:hidden}.clock:before{content:'';position:absolute;inset:0;background:linear-gradient(#ffffff12 1px,transparent 1px),linear-gradient(90deg,#ffffff12 1px,transparent 1px);background-size:32px 32px}.ring{position:relative;width:145px;height:145px;border:12px solid #3b423c;border-radius:50%;display:grid;place-items:center}.ring:after{content:'';position:absolute;inset:-12px;border:12px solid var(--acid);border-radius:50%;clip-path:polygon(0 0,50% 0,50% 50%,0 50%)}.ring span{font:600 35px var(--mono)}.clock-note{position:absolute;left:14px;bottom:12px;color:#abb2ac;font:10px var(--mono)}
     .timeline{display:flex;align-items:center;gap:0;margin:22px 0 8px}.node{width:94px;text-align:center;font:10px var(--mono)}.dot{width:16px;height:16px;border:3px solid var(--ink);background:var(--card);border-radius:50%;margin:0 auto 7px}.node.done .dot{background:var(--acid)}.line{height:2px;background:var(--ink);flex:1;margin-top:-18px}.explain{font-size:14px;color:var(--muted);line-height:1.55;margin:18px 0 0}
-    .query{background:#e8e4ff;border:1px solid #bbb2ff;padding:16px;margin-top:16px}.query code{font:12px/1.6 var(--mono)}.query strong{display:block;margin-top:8px;font:600 20px var(--mono)}
-    .tables{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:22px}table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--muted);font:10px var(--mono);text-transform:uppercase}.event-name{font-family:var(--mono)}.instant{color:#355c00}.segment{color:#594ac9}.empty{padding:28px 8px;color:var(--muted);text-align:center}
+    .event-record{margin-top:16px;border:1px solid #bbb2ff;background:#e8e4ff}.record-head{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:13px 15px;border-bottom:1px solid #bbb2ff}.record-head b{font:600 14px var(--mono)}.record-head span{font:10px var(--mono);color:#594ac9}.record-fields{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#bbb2ff}.record-field{padding:14px;background:#f2f0ff}.record-field label{display:block;font:10px var(--mono);color:var(--muted);margin-bottom:6px}.record-field strong{font:600 17px var(--mono)}.service-log{margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}.service-log-head{display:flex;justify-content:space-between;gap:12px;align-items:center}.service-log-head h3{font-size:14px;margin:0}.tables{margin-top:22px}table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--muted);font:10px var(--mono);text-transform:uppercase}.event-name{font-family:var(--mono)}.instant{color:#355c00}.segment{color:#594ac9}.empty{padding:28px 8px;color:var(--muted);text-align:center}
     .architecture{margin-top:22px;padding:26px;border:1px solid var(--ink)}.architecture h2{margin:0 0 22px}.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:14px;align-items:center}.box{min-height:120px;padding:15px;border:1px solid var(--ink)}.box:nth-child(1){background:var(--blue)}.box:nth-child(3){background:var(--acid)}.box:nth-child(5){background:#e8e4ff}.box b{display:block;margin-bottom:10px}.box p{font-size:12px;margin:0;color:#3f4741}.arrow{font:24px var(--mono)}
     .tradeoff{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);margin-top:22px;border:1px solid var(--line)}.tradeoff div{background:var(--card);padding:20px}.tradeoff h3{margin:0 0 8px;font-size:15px}.tradeoff p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}.good h3{color:#4e7400}.cost h3{color:#a74228}
     footer{display:flex;justify-content:space-between;gap:20px;padding:22px 0 34px;border-top:1px solid var(--line);font:11px var(--mono);color:var(--muted)}footer a{color:inherit}
@@ -29,13 +28,13 @@
   <header class="shell">
     <div class="kicker">Delayed-event service · enriched Page Viewed POC</div>
     <h1>One page view. Completed later.</h1>
-    <p>The SDK sends the original <strong>Page Viewed</strong> to a delayed-event service. Heartbeats update that pending event; when the page ends or expires, the service adds <code>engaged_time_seconds</code> to the <em>same event</em> and forwards it to Amplitude.</p>
+    <p>The SDK sends the original <strong>Page Viewed</strong> to Amplitude’s heartbeat service. Heartbeats update that pending event; when the page ends or expires, the service adds <code>engaged_time_seconds</code> to the <em>same event</em> and forwards it to ingestion.</p>
     <div class="principle"><span>proposed · not production-ready</span><span>one Page Viewed event</span><span>5s activity window</span><span>60s heartbeats</span><span>2h inactivity expiry</span></div>
   </header>
 
   <main class="shell">
     <section class="orientation" aria-labelledby="start-here">
-      <div class="orientation-copy"><div class="kicker">Start here · the idea in 20 seconds</div><h2 id="start-here">Measure attention, then finish the original event.</h2><p>Today, Page Viewed is normally sent immediately—before its engaged time is known. This POC proposes briefly holding that event, updating it with heartbeats, and sending it once its final engaged time is available.</p></div>
+      <div class="orientation-copy"><div class="kicker">Start here · the idea in 20 seconds</div><h2 id="start-here">Measure attention, then finish the original event.</h2><p>Today, Page Viewed is normally sent immediately—before its engaged time is known. This POC proposes briefly holding that event in an Amplitude heartbeat service, updating one property over time, and sending the completed event to ingestion.</p></div>
       <div class="orientation-steps">
         <div class="orientation-step"><span class="step-number">1</span><b>A visit starts</b><p>The browser creates one Page Viewed event. The service holds it instead of sending it to Amplitude yet.</p></div>
         <div class="orientation-step"><span class="step-number">2</span><b>Attention accumulates</b><p>Recent input counts as engaged time. Heartbeats update the same pending record; they are not analytics events.</p></div>
@@ -48,8 +47,8 @@
       <div class="guide-list">
         <div class="guide-item current" data-guide-step="1"><span class="guide-number">01 · Look at the Browser SDK clock</span><b>Let attention expire</b><p>Stop interacting for five seconds. The activity window reaches zero and engaged time pauses.</p></div>
         <div class="guide-item" data-guide-step="2"><span class="guide-number">02 · Look at Browser attention</span><b>Scroll to re-engage</b><p>Scroll anywhere on the page. The tracker returns to ENGAGED and the five-second window restarts.</p></div>
-        <div class="guide-item" data-guide-step="3"><span class="guide-number">03 · Look at the Amplitude holding service</span><b>Send the next snapshot</b><p>Advance 60 seconds to add a heartbeat snapshot to the pending service record.</p></div>
-        <div class="guide-item" data-guide-step="4"><span class="guide-number">04 · Look at Delayed service</span><b>Simulate inactivity expiry</b><p>Advance two hours without waiting. The holding service finalizes the pending Page Viewed.</p></div>
+        <div class="guide-item" data-guide-step="3"><span class="guide-number">03 · Look at the Amplitude heartbeat service</span><b>Send the next snapshot</b><p>Advance 60 seconds. The same pending Page Viewed gets an updated engaged-time property and a new service-log entry.</p></div>
+        <div class="guide-item" data-guide-step="4"><span class="guide-number">04 · Stay on the heartbeat service</span><b>Simulate inactivity expiry</b><p>Advance two hours without waiting. The heartbeat service finalizes that same Page Viewed.</p></div>
         <div class="guide-item" data-guide-step="5"><span class="guide-number">05 · Look at the Amplitude ingestion service</span><b>Confirm the final event</b><p>Amplitude receives exactly one Page Viewed with its final engaged time attached.</p></div>
       </div>
       <div class="demo-actions"><button id="advance-heartbeat" disabled>Advance 60s · send heartbeat</button><button id="advance-expiry" disabled>Advance 2h · finalize event</button><span class="demo-note">Demo controls change simulated time only.</span></div>
@@ -59,7 +58,7 @@
     <section class="status" id="live-status" aria-label="Live tracker status">
       <div class="stat"><label>browser attention</label><strong id="state" class="live">ENGAGED</strong><small>Is the user active right now?</small></div>
       <div class="stat"><label>measured so far</label><strong id="engaged">0.0s</strong><small>Cumulative active-attention time</small></div>
-      <div class="stat"><label>holding service</label><strong id="service-state">PENDING</strong><small>Held until the page visit ends</small></div>
+      <div class="stat"><label>heartbeat service</label><strong id="service-state">PENDING</strong><small>Holds the event until the visit ends</small></div>
       <div class="stat"><label>next snapshot</label><strong id="checkpoint">60.0s</strong><small>Heartbeat cadence in this proposal</small></div>
     </section>
 
@@ -71,24 +70,23 @@
       </div>
 
       <div class="panel">
-        <div class="panel-head"><h2>2 · Amplitude holding service state</h2><span class="badge">live simulation</span></div>
+        <div class="panel-head"><h2>2 · Amplitude heartbeat service</h2><span class="badge">one pending event</span></div>
         <div class="timeline"><div class="node done"><div class="dot"></div>Page Viewed<br>buffered</div><div class="line"></div><div class="node" id="segment-node"><div class="dot"></div>Heartbeats<br>update</div><div class="line"></div><div class="node" id="forward-node"><div class="dot"></div>Page Viewed<br>forwarded</div></div>
-        <div class="query"><code>Amplitude holding service<br>page_view_id = <span id="page-id-short"></span></code><strong id="query-status">Pending · not in ingestion yet</strong></div>
-        <div class="query"><code>Page Viewed.event_properties<br>.engaged_time_seconds</code><strong id="metric">Waiting for finalization</strong></div>
-        <p class="explain"><strong>No new analytics event is created.</strong> Each heartbeat replaces the pending snapshot using stable IDs and preserves the original event timestamp. After finalization, Amplitude receives exactly one enriched Page Viewed event.</p>
+        <div class="event-record" id="holding-service"><div class="record-head"><b>Page Viewed</b><span id="query-status">PENDING · NOT IN INGESTION YET</span></div><div class="record-fields"><div class="record-field"><label>event identity · page_view_id</label><strong id="page-id-short"></strong></div><div class="record-field"><label>event property · engaged_time_seconds</label><strong id="metric">Waiting for finalization</strong></div></div></div>
+        <p class="explain"><strong>This is one event, shown as one record.</strong> The ID identifies the Page Viewed; <code>engaged_time_seconds</code> is a field updated on it. Heartbeats do not create additional analytics events.</p>
+        <div class="service-log"><div class="service-log-head"><h3>Heartbeat service update history</h3><span class="badge" id="event-count">1 service update</span></div><table><thead><tr><th>at</th><th>update to this record</th><th>value</th></tr></thead><tbody id="events"></tbody></table></div>
       </div>
     </section>
 
     <section class="tables">
-      <div class="panel" id="holding-service"><div class="panel-head"><h2>3 · Amplitude holding service</h2><span class="badge" id="event-count">1 record</span></div><p class="explain">This temporary service record shows the original event, heartbeat snapshots, and finalization. These rows are service updates—not extra Amplitude analytics events.</p><table><thead><tr><th>at</th><th>service update</th><th>value</th></tr></thead><tbody id="events"></tbody></table></div>
-      <div class="panel" id="ingestion-service"><div class="panel-head"><h2>4 · Amplitude ingestion service</h2><span class="badge">final destination</span></div><p class="explain">This stays empty while the holding service owns the event. After finalization, ingestion receives the single enriched Page Viewed.</p><table><thead><tr><th>page</th><th>event</th><th>property</th></tr></thead><tbody id="aggregates"></tbody></table></div>
+      <div class="panel" id="ingestion-service"><div class="panel-head"><h2>3 · Amplitude ingestion service</h2><span class="badge">final destination</span></div><p class="explain">This stays empty while the heartbeat service owns the event. After finalization, ingestion receives that same Page Viewed—with its final engaged-time property attached.</p><table><thead><tr><th>page</th><th>event</th><th>property</th></tr></thead><tbody id="aggregates"></tbody></table></div>
     </section>
 
-    <section class="architecture"><div class="kicker">Proposed data path</div><h2>Delay and enrich the original event</h2><div class="flow"><div class="box"><b>① Browser SDK</b><p>Sends Page Viewed once to the holding service, then sends engagement heartbeats carrying the current cumulative duration.</p></div><div class="arrow">→</div><div class="box"><b>② Amplitude holding service</b><p>Holds the original event and updates its pending engaged-time property. Navigation, lifecycle end, or the two-hour expiry finalizes it.</p></div><div class="arrow">→</div><div class="box"><b>③ Amplitude ingestion service</b><p>Receives one Page Viewed event with <code>engaged_time_seconds</code> attached as an event property. No separate engaged-time event.</p></div></div></section>
+    <section class="architecture"><div class="kicker">Proposed data path</div><h2>Delay and enrich the original event</h2><div class="flow"><div class="box"><b>① Browser SDK</b><p>Sends Page Viewed once to the heartbeat service, then sends engagement heartbeats carrying the current cumulative duration.</p></div><div class="arrow">→</div><div class="box"><b>② Amplitude heartbeat service</b><p>Holds the original event and updates its pending engaged-time property. Navigation, lifecycle end, or the two-hour expiry finalizes it.</p></div><div class="arrow">→</div><div class="box"><b>③ Amplitude ingestion service</b><p>Receives that same Page Viewed event with <code>engaged_time_seconds</code> attached. No separate engaged-time event.</p></div></div></section>
 
     <section class="tradeoff"><div class="good"><h3>What this proposal buys</h3><p>A single canonical Page Viewed event, final engaged time attached to the correct page, active-attention semantics, and final-page recovery from the latest stored snapshot.</p></div><div class="cost"><h3>Unresolved product costs</h3><p>Open Page Viewed events are absent from ordinary queries, funnels, and session construction. Production work still needs ordering, BFCache, suspension, offline, multi-tab, shared-heartbeat, and first-class metric decisions.</p></div></section>
   </main>
-  <footer class="shell"><span>Static POC: the SDK, delayed-event service, and Amplitude ingestion are simulated in-browser.</span><a href="https://mercy811.github.io/">Back to Xinyi’s workbench ↗</a></footer>
+  <footer class="shell"><span>Static POC: the SDK, Amplitude heartbeat service, and Amplitude ingestion service are simulated in-browser.</span><a href="https://mercy811.github.io/">Back to Xinyi’s workbench ↗</a></footer>
 
   <script>
     (() => {
@@ -96,7 +94,7 @@
       const CHECKPOINT_MS = 60000, WINDOW_MS = 5000;
       let pageIndex = 0, pageId = crypto.randomUUID(), focused = true, lastActivity = performance.now();
       let insertId = crypto.randomUUID(), startedAt = Date.now(), engaged = 0, foreground = 0, total = 0, snapshotVersion = 0;
-      let lastTick = performance.now(), lastCheckpoint = performance.now(), finalized = false, guideStage = 1;
+      let lastTick = performance.now(), lastCheckpoint = performance.now(), finalized = false, guideStage = 1, lastSnapshotEngaged = null;
       const events = [], forwarded = [];
       const pageName = () => pageIndex ? 'Article B' : 'Article A';
       const fmt = ms => `${(ms / 1000).toFixed(1)}s`;
@@ -108,6 +106,7 @@
         if (finalized) return;
         lastCheckpoint = performance.now();
         snapshotVersion += 1;
+        lastSnapshotEngaged = engaged;
         addEvent('Heartbeat snapshot', `v${snapshotVersion} · ${fmt(engaged)} engaged · ${reason}`, 'segment');
         $('segment-node').classList.add('done');
         if (guideStage === 3) setGuide(4);
@@ -143,7 +142,7 @@
         $('engaged').textContent = fmt(engaged); $('service-state').textContent = finalized ? 'FORWARDED' : 'PENDING'; $('window').textContent = (remaining / 1000).toFixed(1);
         $('checkpoint').textContent = fmt(Math.max(0, CHECKPOINT_MS - (now - lastCheckpoint)));
         $('query-status').textContent = finalized ? 'Forwarded to ingestion' : 'Pending · not in ingestion yet';
-        $('metric').textContent = finalized ? `${(engaged/1000).toFixed(1)} seconds` : 'Waiting for finalization';
+        $('metric').textContent = finalized ? `${(engaged/1000).toFixed(1)} seconds · final` : lastSnapshotEngaged === null ? 'Not snapshotted yet' : `${(lastSnapshotEngaged/1000).toFixed(1)} seconds · snapshot v${snapshotVersion}`;
         $('page-name').textContent = pageName(); $('page-id-short').textContent = pageId.slice(0, 8); $('event-count').textContent = `${events.length} service update${events.length === 1 ? '' : 's'}`;
         $('events').innerHTML = events.slice(0, 8).map(e => `<tr><td>${e.at}</td><td class="event-name ${e.kind}">${e.name}</td><td>${e.value}</td></tr>`).join('');
         $('aggregates').innerHTML = forwarded.length ? forwarded.map(e => `<tr><td>${e.page}<br><small>page ${e.id.slice(0,8)} · insert ${e.insertId.slice(0,8)}</small></td><td class="event-name">[Amplitude] Page Viewed</td><td>[Amplitude] Engaged Time: ${Math.round(e.engaged)}ms<br><small>Total ${fmt(e.total)} · Foreground ${fmt(e.foreground)} · v${e.snapshotVersion} · ${e.reason}<br>original time ${new Date(e.startedAt).toLocaleTimeString()}</small></td></tr>`).join('') : '<tr><td colspan="3" class="empty">No event until Page Viewed is finalized</td></tr>';
