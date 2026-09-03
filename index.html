@@ -29,7 +29,7 @@
     <div class="kicker">Delayed-event service · enriched Page Viewed POC</div>
     <h1>One page view. Completed later.</h1>
     <p>The SDK sends the original <strong>Page Viewed</strong> to a delayed-event service. Heartbeats update that pending event; when the page ends or expires, the service adds <code>engaged_time_seconds</code> to the <em>same event</em> and forwards it to Amplitude.</p>
-    <div class="principle"><span>one Page Viewed event</span><span>5s activity window</span><span>visible + focused only</span><span>15s heartbeats</span><span>2h expiry</span></div>
+    <div class="principle"><span>proposed · not production-ready</span><span>one Page Viewed event</span><span>5s activity window</span><span>60s heartbeats</span><span>2h inactivity expiry</span></div>
   </header>
 
   <main class="shell">
@@ -37,7 +37,7 @@
       <div class="stat"><label>tracker state</label><strong id="state" class="live">ENGAGED</strong></div>
       <div class="stat"><label>engaged time</label><strong id="engaged">0.0s</strong></div>
       <div class="stat"><label>service state</label><strong id="service-state">PENDING</strong></div>
-      <div class="stat"><label>next heartbeat</label><strong id="checkpoint">15.0s</strong></div>
+      <div class="stat"><label>next heartbeat</label><strong id="checkpoint">60.0s</strong></div>
     </section>
 
     <section class="workspace">
@@ -49,6 +49,7 @@
           <button id="focus">Simulate tab hidden</button>
           <button id="flush">Send heartbeat now</button>
           <button id="navigate">Navigate to Article B</button>
+          <button id="expire">Finalize: 2h inactivity</button>
         </div>
         <p class="explain">Mouse, scroll, click, touch, keyboard, load, and focus renew a five-second window. The clock pauses immediately when the tab or browser loses focus. Use the controls to see the state machine change.</p>
       </div>
@@ -58,7 +59,7 @@
         <div class="timeline"><div class="node done"><div class="dot"></div>Page Viewed<br>buffered</div><div class="line"></div><div class="node" id="segment-node"><div class="dot"></div>Heartbeats<br>update</div><div class="line"></div><div class="node" id="forward-node"><div class="dot"></div>Page Viewed<br>forwarded</div></div>
         <div class="query"><code>Delayed service<br>page_view_id = <span id="page-id-short"></span></code><strong id="query-status">Pending · not in Amplitude yet</strong></div>
         <div class="query"><code>Page Viewed.event_properties<br>.engaged_time_seconds</code><strong id="metric">Waiting for finalization</strong></div>
-        <p class="explain"><strong>No new analytics event is created.</strong> Heartbeats are service-control messages only. After finalization, Amplitude receives exactly one enriched Page Viewed event.</p>
+        <p class="explain"><strong>No new analytics event is created.</strong> Each heartbeat replaces the pending snapshot using stable IDs and preserves the original event timestamp. After finalization, Amplitude receives exactly one enriched Page Viewed event.</p>
       </div>
     </section>
 
@@ -69,16 +70,17 @@
 
     <section class="architecture"><div class="kicker">Proposed data path</div><h2>Delay and enrich the original event</h2><div class="flow"><div class="box"><b>① Browser SDK</b><p>Sends Page Viewed once to the delayed service, then sends engagement heartbeats carrying the current cumulative duration.</p></div><div class="arrow">→</div><div class="box"><b>② Delayed-event service</b><p>Holds the original event and updates its pending engaged-time property. Navigation, lifecycle end, or the two-hour expiry finalizes it.</p></div><div class="arrow">→</div><div class="box"><b>③ Amplitude ingestion</b><p>Receives one Page Viewed event with <code>engaged_time_seconds</code> attached as an event property. No separate engaged-time event.</p></div></div></section>
 
-    <section class="tradeoff"><div class="good"><h3>What this buys</h3><p>A single canonical Page Viewed event, the property directly available in Amplitude analyses, correct page attribution, and final-page recovery through service expiry.</p></div><div class="cost"><h3>What it costs</h3><p>The Page Viewed event is not queryable in Amplitude until it is finalized. The service must maintain pending state, accept heartbeats, and handle expiry and deduplication.</p></div></section>
+    <section class="tradeoff"><div class="good"><h3>What this proposal buys</h3><p>A single canonical Page Viewed event, final engaged time attached to the correct page, active-attention semantics, and final-page recovery from the latest stored snapshot.</p></div><div class="cost"><h3>Unresolved product costs</h3><p>Open Page Viewed events are absent from ordinary queries, funnels, and session construction. Production work still needs ordering, BFCache, suspension, offline, multi-tab, shared-heartbeat, and first-class metric decisions.</p></div></section>
   </main>
   <footer class="shell"><span>Static POC: the SDK, delayed-event service, and Amplitude ingestion are simulated in-browser.</span><a href="https://mercy811.github.io/">Back to Xinyi’s workbench ↗</a></footer>
 
   <script>
     (() => {
       const $ = id => document.getElementById(id);
-      const CHECKPOINT_MS = 15000, WINDOW_MS = 5000;
+      const CHECKPOINT_MS = 60000, WINDOW_MS = 5000;
       let pageIndex = 0, pageId = crypto.randomUUID(), focused = true, lastActivity = performance.now();
-      let engaged = 0, lastTick = performance.now(), lastCheckpoint = performance.now(), finalized = false;
+      let insertId = crypto.randomUUID(), startedAt = Date.now(), engaged = 0, foreground = 0, total = 0, snapshotVersion = 0;
+      let lastTick = performance.now(), lastCheckpoint = performance.now(), finalized = false;
       const events = [], forwarded = [];
       const pageName = () => pageIndex ? 'Article B' : 'Article A';
       const fmt = ms => `${(ms / 1000).toFixed(1)}s`;
@@ -89,19 +91,20 @@
       function checkpoint(reason = 'cadence') {
         if (finalized) return;
         lastCheckpoint = performance.now();
-        addEvent('Heartbeat', `${fmt(engaged)} cumulative · ${reason}`, 'segment');
+        snapshotVersion += 1;
+        addEvent('Heartbeat snapshot', `v${snapshotVersion} · ${fmt(engaged)} engaged · ${reason}`, 'segment');
         $('segment-node').classList.add('done');
       }
       function finalize(reason) {
         if (finalized) return;
         checkpoint(reason); finalized = true;
-        forwarded.unshift({page:pageName(), id:pageId, engaged});
+        forwarded.unshift({page:pageName(), id:pageId, insertId, startedAt, engaged, foreground, total, reason, snapshotVersion});
         addEvent('Finalize pending Page Viewed', reason, 'instant');
         $('forward-node').classList.add('done');
       }
       function activity() { if (!focused) return; lastActivity = performance.now(); }
       function navigate() {
-        finalize('route change'); pageIndex = pageIndex ? 0 : 1; pageId = crypto.randomUUID(); engaged = 0; finalized = false; lastActivity = performance.now(); lastCheckpoint = performance.now();
+        finalize('route_change'); pageIndex = pageIndex ? 0 : 1; pageId = crypto.randomUUID(); insertId = crypto.randomUUID(); startedAt = Date.now(); engaged = 0; foreground = 0; total = 0; snapshotVersion = 0; finalized = false; lastActivity = performance.now(); lastCheckpoint = performance.now();
         addEvent('Page Viewed → delayed service', 'original event buffered', 'instant'); $('segment-node').classList.remove('done'); $('forward-node').classList.remove('done');
         $('navigate').textContent = `Navigate to ${pageIndex ? 'Article A' : 'Article B'}`;
       }
@@ -115,18 +118,21 @@
         $('metric').textContent = finalized ? `${(engaged/1000).toFixed(1)} seconds` : 'Waiting for finalization';
         $('page-name').textContent = pageName(); $('page-id-short').textContent = pageId.slice(0, 8); $('event-count').textContent = `${events.length} event${events.length === 1 ? '' : 's'}`;
         $('events').innerHTML = events.slice(0, 8).map(e => `<tr><td>${e.at}</td><td class="event-name ${e.kind}">${e.name}</td><td>${e.value}</td></tr>`).join('');
-        $('aggregates').innerHTML = forwarded.length ? forwarded.map(e => `<tr><td>${e.page}<br><small>${e.id.slice(0,8)}</small></td><td class="event-name">[Amplitude] Page Viewed</td><td>engaged_time_seconds: ${(e.engaged/1000).toFixed(1)}</td></tr>`).join('') : '<tr><td colspan="3" class="empty">No event until Page Viewed is finalized</td></tr>';
+        $('aggregates').innerHTML = forwarded.length ? forwarded.map(e => `<tr><td>${e.page}<br><small>page ${e.id.slice(0,8)} · insert ${e.insertId.slice(0,8)}</small></td><td class="event-name">[Amplitude] Page Viewed</td><td>[Amplitude] Engaged Time: ${Math.round(e.engaged)}ms<br><small>Total ${fmt(e.total)} · Foreground ${fmt(e.foreground)} · v${e.snapshotVersion} · ${e.reason}<br>original time ${new Date(e.startedAt).toLocaleTimeString()}</small></td></tr>`).join('') : '<tr><td colspan="3" class="empty">No event until Page Viewed is finalized</td></tr>';
       }
       function tick(now) {
         const delta = Math.min(300, now - lastTick), active = focused && now - lastActivity < WINDOW_MS; lastTick = now;
+        if (!finalized) total += delta;
+        if (focused && !finalized) foreground += delta;
         if (active && !finalized) engaged += delta;
-        if (now - lastCheckpoint >= CHECKPOINT_MS) checkpoint('15s cadence');
+        if (now - lastCheckpoint >= CHECKPOINT_MS) checkpoint('60s cadence');
         render(); requestAnimationFrame(tick);
       }
       $('activity').addEventListener('click', activity);
       $('focus').addEventListener('click', () => { focused = !focused; if (focused) activity(); else checkpoint('tab hidden'); $('focus').textContent = focused ? 'Simulate tab hidden' : 'Return to tab'; });
       $('flush').addEventListener('click', () => checkpoint('manual'));
       $('navigate').addEventListener('click', navigate);
+      $('expire').addEventListener('click', () => finalize('inactivity_timeout'));
       ['mousemove','keydown','scroll','touchstart'].forEach(type => document.addEventListener(type, activity, {passive:true}));
       addEvent('Page Viewed → delayed service', 'original event buffered', 'instant'); requestAnimationFrame(tick);
     })();
