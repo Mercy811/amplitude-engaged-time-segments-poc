@@ -11,6 +11,7 @@
     header{padding:38px 0 28px;border-bottom:1px solid var(--ink)}.kicker{font:600 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}h1{font-size:clamp(42px,6vw,76px);line-height:.95;letter-spacing:-.055em;max-width:900px;margin:16px 0 20px}header>p{max-width:760px;color:#414943;font-size:18px;line-height:1.55}
     .principle{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.principle span{border:1px solid var(--ink);border-radius:99px;padding:7px 11px;font:11px var(--mono)}
     main{padding:34px 0 70px}.orientation{display:grid;grid-template-columns:.8fr 1.2fr;border:1px solid var(--ink);margin-bottom:22px;background:var(--card)}.orientation-copy{padding:24px;background:var(--acid)}.orientation-copy h2{font-size:28px;letter-spacing:-.03em;margin:8px 0 12px}.orientation-copy p{font-size:14px;line-height:1.55;margin:0;max-width:42ch}.orientation-steps{display:grid;grid-template-columns:repeat(3,1fr);padding:24px;gap:18px}.orientation-step{position:relative;padding-left:34px}.orientation-step b{display:block;font-size:13px;margin-bottom:6px}.orientation-step p{color:var(--muted);font-size:12px;line-height:1.45;margin:0}.step-number{position:absolute;left:0;top:0;width:24px;height:24px;display:grid;place-items:center;border:1px solid var(--ink);border-radius:50%;font:11px var(--mono)}
+    .settings{border:1px solid var(--ink);background:var(--card);padding:22px;margin-bottom:22px}.settings h2{font-size:20px;margin:5px 0 14px}.settings p{font-size:12px;line-height:1.5;color:var(--muted);margin:12px 0 0}.settings a{color:#594ac9}.settings-table{overflow-x:auto}.settings table{min-width:690px}.settings td:first-child{font-weight:600}.settings td:nth-child(2){font:600 13px var(--mono);white-space:nowrap}
     .live-guide{padding:20px;margin-bottom:22px;border:1px solid var(--ink);background:var(--card)}.guide-head{display:flex;justify-content:space-between;gap:16px;align-items:end;margin-bottom:14px}.guide-head h2{font-size:20px;margin:5px 0 0}.guide-head p{font:10px var(--mono);color:var(--muted);margin:0}.guide-list{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.guide-item{min-height:134px;padding:14px;border:1px solid var(--line);background:var(--paper);transition:background .2s,border-color .2s,transform .2s}.guide-item.current{background:var(--acid);border-color:var(--ink);transform:translateY(-3px);box-shadow:0 4px 0 var(--ink)}.guide-item.done{background:#eef4dc}.guide-item .guide-number{display:block;font:10px var(--mono);color:var(--muted);margin-bottom:16px}.guide-item.current .guide-number{color:var(--ink)}.guide-item b{display:block;font-size:13px;margin-bottom:6px}.guide-item p{font-size:11px;line-height:1.45;color:var(--muted);margin:0}.guide-item.current p{color:#39402f}.demo-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}button{font:600 11px var(--mono);padding:10px 12px;border:1px solid var(--ink);background:var(--card);cursor:pointer;position:relative}button:hover,button:focus-visible{background:var(--acid)}button:disabled{cursor:default;opacity:.45;background:#e9ebe6}button[data-tip]:not(:disabled):hover:after,button[data-tip]:not(:disabled):focus-visible:after{content:attr(data-tip);position:absolute;z-index:5;left:0;bottom:calc(100% + 8px);width:min(390px,80vw);padding:12px;background:var(--ink);color:#fff;text-align:left;font:11px/1.5 var(--sans);box-shadow:0 4px 0 #0003}.demo-note{align-self:center;font-size:11px;color:var(--muted)}
     .status-caption{display:flex;justify-content:space-between;gap:16px;align-items:end;margin:0 0 9px}.status-caption h2{font-size:16px;margin:0}.status-caption p{font:10px var(--mono);color:var(--muted);margin:0}.status{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--ink);background:var(--ink);gap:1px}.stat{background:var(--card);padding:18px}.stat label{display:block;color:var(--muted);font:10px var(--mono);text-transform:uppercase;margin-bottom:8px}.stat strong{font:600 23px var(--mono)}.stat strong.live{color:#527d00}.stat strong.idle{color:#b63a1e}.stat small{display:block;color:var(--muted);font-size:10px;line-height:1.35;margin-top:8px}
     .workspace{display:grid;grid-template-columns:.95fr 1.05fr;gap:22px;margin-top:22px}.panel{border:1px solid var(--line);background:var(--card);padding:22px}.panel-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:20px}.panel h2{font-size:20px;margin:0}.badge{padding:5px 8px;border-radius:99px;background:#e9ebe6;font:10px var(--mono)}.look-here{outline:4px solid var(--purple);outline-offset:4px}
@@ -18,7 +19,7 @@
     .timeline{display:flex;align-items:center;gap:0;margin:22px 0 8px}.node{width:94px;text-align:center;font:10px var(--mono)}.dot{width:16px;height:16px;border:3px solid var(--ink);background:var(--card);border-radius:50%;margin:0 auto 7px}.node.done .dot{background:var(--acid)}.line{height:2px;background:var(--ink);flex:1;margin-top:-18px}.explain{font-size:14px;color:var(--muted);line-height:1.55;margin:18px 0 0}
     .event-record{margin-top:16px;border:1px solid #bbb2ff;background:#e8e4ff}.record-head{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:13px 15px;border-bottom:1px solid #bbb2ff}.record-head b{font:600 14px var(--mono)}.record-head span{font:10px var(--mono);color:#594ac9}.record-fields{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#bbb2ff}.record-field{padding:14px;background:#f2f0ff}.record-field label{display:block;font:10px var(--mono);color:var(--muted);margin-bottom:6px}.record-field strong{font:600 17px var(--mono)}.service-log{margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}.service-log-head{display:flex;justify-content:space-between;gap:12px;align-items:center}.service-log-head h3{font-size:14px;margin:0}.heartbeat-empty{margin-top:16px;padding:24px;border:1px dashed var(--line);background:var(--paper);text-align:center}.heartbeat-empty b{display:block;font-size:15px;margin-bottom:6px}.heartbeat-empty p{margin:0;color:var(--muted);font-size:12px}.tables{margin-top:22px}table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--muted);font:10px var(--mono);text-transform:uppercase}.event-name{font-family:var(--mono)}.instant{color:#355c00}.segment{color:#594ac9}.empty{padding:28px 8px;color:var(--muted);text-align:center}
     .architecture{margin-top:22px;padding:26px;border:1px solid var(--ink)}.architecture h2{margin:0 0 22px}.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:14px;align-items:center}.box{min-height:120px;padding:15px;border:1px solid var(--ink)}.box:nth-child(1){background:var(--blue)}.box:nth-child(3){background:var(--acid)}.box:nth-child(5){background:#e8e4ff}.box b{display:block;margin-bottom:10px}.box p{font-size:12px;margin:0;color:#3f4741}.arrow{font:24px var(--mono)}
-    .tradeoff,.end-paths{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);margin-top:22px;border:1px solid var(--line)}.tradeoff div,.end-path{background:var(--card);padding:20px}.tradeoff h3,.end-path h3{margin:0 0 8px;font-size:15px}.tradeoff p,.end-path p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}.path-tag{display:inline-block;margin-bottom:10px;padding:4px 7px;background:var(--acid);font:10px var(--mono)}.end-path code{font:11px var(--mono)}.good h3{color:#4e7400}.cost h3{color:#a74228}
+    .tradeoff,.end-paths{display:grid;gap:1px;background:var(--line);margin-top:22px;border:1px solid var(--line)}.tradeoff{grid-template-columns:repeat(2,1fr)}.end-paths{grid-template-columns:repeat(3,1fr)}.tradeoff div,.end-path{background:var(--card);padding:20px}.tradeoff h3,.end-path h3{margin:0 0 8px;font-size:15px}.tradeoff p,.end-path p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}.path-tag{display:inline-block;margin-bottom:10px;padding:4px 7px;background:var(--acid);font:10px var(--mono)}.end-path code{font:11px var(--mono)}.good h3{color:#4e7400}.cost h3{color:#a74228}
     footer{display:flex;justify-content:space-between;gap:20px;padding:22px 0 34px;border-top:1px solid var(--line);font:11px var(--mono);color:var(--muted)}footer a{color:inherit}
     @media(max-width:800px){.orientation{grid-template-columns:1fr}.orientation-steps{grid-template-columns:1fr}.guide-list{grid-template-columns:1fr}.guide-item{min-height:0}.guide-item .guide-number{margin-bottom:8px}.status{grid-template-columns:1fr 1fr}.workspace,.tables{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.arrow{transform:rotate(90deg);text-align:center}.tradeoff,.end-paths{grid-template-columns:1fr}}
     @media(max-width:480px){header{padding-top:26px}.guide-head{align-items:start;flex-direction:column}.status{grid-template-columns:1fr 1fr}.stat{padding:13px}.stat strong{font-size:20px}.panel{padding:14px}.timeline .node{width:68px}.principle span{font-size:9px}footer{flex-direction:column}}
@@ -29,7 +30,7 @@
     <div class="kicker">Delayed-event service · enriched Page Viewed POC</div>
     <h1>One page view. Completed later.</h1>
     <p>The SDK sends the original <strong>Page Viewed</strong> to Amplitude’s heartbeat service. Heartbeats update that pending event; when the page ends or expires, the service adds <code>engaged_time_seconds</code> to the <em>same event</em> and forwards it to ingestion.</p>
-    <div class="principle"><span>proposed · not production-ready</span><span>one Page Viewed event</span><span>5s activity window</span><span>15s heartbeats · Chartbeat parity</span><span>2h inactivity expiry</span></div>
+    <div class="principle"><span>in-browser simulation · not an SDK integration</span><span>one Page Viewed event</span><span>5s activity window</span><span>15s snapshots</span><span>3m inactivity finalization</span></div>
   </header>
 
   <main class="shell">
@@ -42,16 +43,28 @@
       </div>
     </section>
 
+    <section class="settings" aria-labelledby="settings-title">
+      <div class="kicker">Reach proposal · simulation defaults</div>
+      <h2 id="settings-title">Four timings, three different jobs</h2>
+      <div class="settings-table"><table><thead><tr><th scope="col">Setting</th><th scope="col">Default</th><th scope="col">Configurable?</th><th scope="col">What it does</th></tr></thead><tbody>
+        <tr><td>Engagement activity window</td><td>5 seconds</td><td>Yes, requested; default proposed</td><td>Recent activity keeps the attention clock running. When the window closes, engaged time pauses; blur or a hidden tab pauses it immediately.</td></tr>
+        <tr><td>Snapshot heartbeat</td><td>15 seconds</td><td>Yes, proposed SDK option</td><td>Updates the same pending Page Viewed with cumulative engaged time. Reach wants this cadence; they have not specifically requested a cadence control.</td></tr>
+        <tr><td>Client inactivity finalization</td><td>3 minutes</td><td>Yes, confirmed by Reach</td><td>Measured from the last qualifying engagement. A running SDK finalizes the page; heartbeat requests never reset this deadline.</td></tr>
+        <tr><td>Service fallback timeout</td><td>3 minutes</td><td>Internal setting, aligned with client</td><td>Measured from the last accepted snapshot when the SDK cannot finalize. It is a separate timer, not a second customer-facing option.</td></tr>
+      </tbody></table></div>
+      <p>The 5-second window pauses counting; the 3-minute inactivity timer ends the logical page view. The service timeout protects the latest stored snapshot if the browser stops running. This POC simulates all three behaviors in-browser. <a href="https://linear.app/amplitude/issue/SDKW-66/design-feature-scoped-delayed-event-heartbeat-instances-for-engagement">Timing decision ↗</a> · <a href="https://amplitude.enterprise.slack.com/archives/C0BT00QCVBM/p1789660492153449">Reach confirmation ↗</a></p>
+    </section>
+
     <section class="live-guide" id="live-guide" aria-label="Interactive engagement guide">
       <div class="guide-head"><div><div class="kicker">Follow the live proposal</div><h2>See the full lifecycle in five steps</h2></div><p id="guide-status" aria-live="polite">Current · Step 1</p></div>
       <div class="guide-list">
         <div class="guide-item current" data-guide-step="1"><span class="guide-number">01 · Look at the Browser SDK clock</span><b>Let attention expire</b><p>Stop interacting for five seconds. The activity window reaches zero and engaged time pauses.</p></div>
         <div class="guide-item" data-guide-step="2"><span class="guide-number">02 · Look at Browser attention</span><b>Scroll to re-engage</b><p>Scroll anywhere on the page. The tracker returns to ENGAGED and the five-second window restarts.</p></div>
-        <div class="guide-item" data-guide-step="3"><span class="guide-number">03 · Look at the Amplitude heartbeat service</span><b>Send the next snapshot</b><p>Advance 15 seconds. The service replaces the pending Page Viewed with its latest cumulative engaged time.</p></div>
-        <div class="guide-item" data-guide-step="4"><span class="guide-number">04 · Choose one ending</span><b>Navigate—or remain inactive</b><p>These paths are alternatives. Navigation attempts immediate finalization; two-hour inactivity is the expiry fallback.</p></div>
-        <div class="guide-item" data-guide-step="5"><span class="guide-number">05 · Compare the old and new views</span><b>One finalized + one new</b><p>Navigation starts the next page immediately. After expiry, simulate returning at hour three to create a new Page View for the same URL.</p></div>
+        <div class="guide-item" data-guide-step="3"><span class="guide-number">03 · Look at the Amplitude heartbeat service</span><b>Send the next snapshot</b><p>Send a snapshot now. Normally the 15-second cadence replaces the pending Page Viewed with its latest cumulative engaged time.</p></div>
+        <div class="guide-item" data-guide-step="4"><span class="guide-number">04 · Choose one ending</span><b>Navigate—or remain inactive</b><p>Choose navigation, the running client's 3-minute inactivity timer, or the service fallback after browser suspension.</p></div>
+        <div class="guide-item" data-guide-step="5"><span class="guide-number">05 · Compare the old and new views</span><b>One finalized + one new</b><p>Navigation starts Article B immediately. After inactivity, simulate returning to Article A after the 3-minute boundary.</p></div>
       </div>
-      <div class="demo-actions"><button id="advance-heartbeat" disabled>Advance 15s · send heartbeat</button><button id="simulate-navigation" disabled data-tip="Simulates pagehide/beforeunload. The SDK attempts a final cumulative snapshot and immediate finalize. Delivery is best-effort: Chartbeat reports about 68% success for its unload mechanisms. On same-site navigation, Chartbeat can store the previous pinger state on the client and resend it from a later page.">Navigate to Article B</button><button id="advance-expiry" disabled>Advance 2h · expire Article A</button><button id="return-after-expiry" hidden>Return after 3h · same Article A</button><span class="demo-note" id="demo-note">At Step 4, choose only one completion path.</span></div>
+      <div class="demo-actions"><button id="advance-heartbeat" disabled>Send snapshot now</button><button id="simulate-navigation" disabled data-tip="Simulates pagehide/beforeunload. The SDK attempts a final cumulative snapshot and immediate finalize. Delivery is best-effort: Chartbeat reports about 68% success for its unload mechanisms. On same-site navigation, Chartbeat can store the previous pinger state on the client and resend it from a later page.">Navigate to Article B</button><button id="advance-expiry" disabled>Simulate 3m client inactivity</button><button id="simulate-fallback" disabled>Simulate suspended SDK · service fallback</button><button id="return-after-expiry" hidden>Return after 3m · same Article A</button><span class="demo-note" id="demo-note">At Step 4, choose one completion path.</span></div>
     </section>
 
     <div class="status-caption"><h2>Live state of this simulated page visit</h2><p>These values update in your browser only</p></div>
@@ -60,14 +73,14 @@
       <div class="stat"><label>measured so far</label><strong id="engaged">0.0s</strong><small>Cumulative active-attention time</small></div>
       <div class="stat"><label>heartbeat service</label><strong id="service-state">PENDING</strong><small>Holds the event until the visit ends</small></div>
       <div class="stat"><label>next snapshot</label><strong id="checkpoint">15.0s</strong><small>Chartbeat-aligned active cadence</small></div>
-      <div class="stat"><label>inactivity expires</label><strong id="expiration">2h 00m</strong><small>Reset by activity—not heartbeat traffic</small></div>
+      <div class="stat"><label>client inactivity</label><strong id="expiration">3m 00s</strong><small>Reset by activity—not heartbeat traffic</small></div>
     </section>
 
     <section class="workspace">
       <div class="panel" id="browser-panel">
         <div class="panel-head"><h2>1 · What happens in the browser</h2><span class="badge" id="page-name">Article A</span></div>
         <div class="clock"><div class="ring"><span id="window">5.0</span></div><div class="clock-note">activity window remaining</div></div>
-        <p class="explain">Mouse, scroll, click, touch, keyboard, load, and focus renew a five-second activity window. This simulation snapshots every 15 seconds. The separate two-hour expiration deadline resets only on qualifying activity; heartbeat traffic must not keep an inactive page alive.</p>
+        <p class="explain">Mouse, scroll, click, touch, keyboard, load, and focus renew a five-second activity window. This simulation snapshots every 15 seconds. The separate three-minute client inactivity deadline resets only on qualifying activity; heartbeat traffic must not keep an inactive page alive.</p>
       </div>
 
       <div class="panel">
@@ -86,10 +99,11 @@
 
     <section class="end-paths" aria-label="Mutually exclusive completion paths">
       <div class="end-path"><span class="path-tag">PATH A · NAVIGATION</span><h3>The page ends explicitly</h3><p>On <code>pagehide</code>/<code>beforeunload</code>, the SDK attempts one final cumulative snapshot and asks the service to finalize immediately. Delivery is not guaranteed. Chartbeat reports about <strong>68% success</strong> for its combined unload mechanisms. For same-site navigation, Chartbeat stores the previous pinger state on the client for up to an hour and can resend it when another page on the domain loads Chartbeat. Whether the Amplitude SDK should add that client-side handoff remains an open design question. <a href="https://help.chartbeat.com/hc/en-us/articles/360045890913-User-Engagement-Tracking-Methodology">Chartbeat methodology ↗</a></p></div>
-      <div class="end-path"><span class="path-tag">PATH B · INACTIVITY</span><h3>The page remains open but inactive</h3><p>After two continuous hours without qualifying engagement, the client finalizes if its timer is running. If the browser suspended the client, the delayed service timeout finalizes the latest successful snapshot. Returning at hour three creates a second logical Page View—even in the same tab and at the same URL—with new <code>page_view_id</code>, <code>insert_id</code>, timestamp, and zeroed counters.</p></div>
+      <div class="end-path"><span class="path-tag">PATH B · CLIENT INACTIVITY</span><h3>The page remains open but inactive</h3><p>After three minutes without qualifying engagement, the running client sends a final snapshot and finalizes the Page Viewed. Heartbeat traffic does not reset this clock. Returning after that boundary creates a new logical Page View, even at the same URL.</p></div>
+      <div class="end-path"><span class="path-tag">PATH C · SERVICE FALLBACK</span><h3>The SDK stops before it can finalize</h3><p>If browser timers are suspended, the service timeout becomes due three minutes after the last accepted snapshot and forwards that stored value. This may lose the unreported tail. Actual DynamoDB TTL deletion and ingestion can take longer; three minutes is not a delivery guarantee.</p></div>
     </section>
 
-    <section class="architecture"><div class="kicker">Proposed data path</div><h2>Delay and enrich the original event</h2><div class="flow"><div class="box"><b>① Browser SDK</b><p>Sends Page Viewed once to the heartbeat service, then sends engagement heartbeats carrying the current cumulative duration.</p></div><div class="arrow">→</div><div class="box"><b>② Amplitude heartbeat service</b><p>Holds the original event and updates its pending engaged-time property. Navigation, lifecycle end, or the two-hour expiry finalizes it.</p></div><div class="arrow">→</div><div class="box"><b>③ Amplitude ingestion service</b><p>Receives that same Page Viewed event with <code>engaged_time_seconds</code> attached. No separate engaged-time event.</p></div></div></section>
+    <section class="architecture"><div class="kicker">Proposed data path</div><h2>Delay and enrich the original event</h2><div class="flow"><div class="box"><b>① Browser SDK</b><p>Sends Page Viewed once to the heartbeat service, then sends engagement heartbeats carrying the current cumulative duration.</p></div><div class="arrow">→</div><div class="box"><b>② Amplitude heartbeat service</b><p>Holds the original event and updates its pending engaged-time property. Navigation, client inactivity, or the separate service timeout finalizes it.</p></div><div class="arrow">→</div><div class="box"><b>③ Amplitude ingestion service</b><p>Receives that same Page Viewed event with <code>engaged_time_seconds</code> attached. No separate engaged-time event.</p></div></div></section>
 
     <section class="tradeoff"><div class="good"><h3>What this proposal buys</h3><p>A single canonical Page Viewed event, final engaged time attached to the correct page, active-attention semantics, and final-page recovery from the latest stored snapshot.</p></div><div class="cost"><h3>Unresolved product costs</h3><p>Open Page Viewed events are absent from ordinary queries, funnels, and session construction. Production work still needs ordering, BFCache, suspension, offline, multi-tab, shared-heartbeat, and first-class metric decisions.</p></div></section>
   </main>
@@ -98,31 +112,33 @@
   <script>
     (() => {
       const $ = id => document.getElementById(id);
-      const CHECKPOINT_MS = 15000, WINDOW_MS = 5000, EXPIRY_MS = 2 * 60 * 60 * 1000;
+      const CHECKPOINT_MS = 15000, WINDOW_MS = 5000, EXPIRY_MS = 3 * 60 * 1000, SERVICE_TIMEOUT_MS = 3 * 60 * 1000;
       let pageIndex = 0, visitNumber = 1, pageId = crypto.randomUUID(), focused = true, lastActivity = performance.now();
       let insertId = crypto.randomUUID(), startedAt = Date.now(), engaged = 0, foreground = 0, total = 0, snapshotVersion = 0;
-      let lastTick = performance.now(), lastCheckpoint = performance.now(), finalized = false, guideStage = 1, lastSnapshotEngaged = null;
+      let lastTick = performance.now(), lastCheckpoint = performance.now(), finalized = false, guideStage = 1, lastSnapshot = null;
       const events = [], forwarded = [];
       const pageName = () => pageIndex ? 'Article B' : visitNumber > 1 ? 'Article A · visit 2' : 'Article A';
       const fmt = ms => `${(ms / 1000).toFixed(1)}s`;
-      function addEvent(operation, trigger = '—', kind = 'instant', version = '—') {
-        events.unshift({ at: new Date().toLocaleTimeString([], {minute:'2-digit',second:'2-digit'}), operation, trigger, kind, version, page: pageName(), engaged });
+      function addEvent(operation, trigger = '—', kind = 'instant', version = '—', engagedValue = engaged) {
+        events.unshift({ at: new Date().toLocaleTimeString([], {minute:'2-digit',second:'2-digit'}), operation, trigger, kind, version, page: pageName(), engaged: engagedValue });
         render();
       }
       function checkpoint(reason = 'cadence') {
         if (finalized) return;
         lastCheckpoint = performance.now();
         snapshotVersion += 1;
-        lastSnapshotEngaged = engaged;
+        lastSnapshot = { engaged, foreground, total };
         addEvent('Replace pending Page Viewed', reason, 'segment', `v${snapshotVersion}`);
         $('segment-node').classList.add('done');
         if (guideStage === 3) setGuide(4);
       }
-      function finalize(reason) {
+      function finalize(reason, useStoredSnapshot = false) {
         if (finalized) return;
-        checkpoint(reason); finalized = true;
-        forwarded.unshift({page:pageName(), id:pageId, insertId, startedAt, engaged, foreground, total, reason, snapshotVersion});
-        addEvent('Move Page Viewed to ingestion', reason, 'instant', `v${snapshotVersion}`);
+        if (!useStoredSnapshot) checkpoint(reason);
+        const finalValues = useStoredSnapshot ? lastSnapshot || { engaged: 0, foreground: 0, total: 0 } : { engaged, foreground, total };
+        finalized = true;
+        forwarded.unshift({page:pageName(), id:pageId, insertId, startedAt, ...finalValues, reason, snapshotVersion});
+        addEvent('Move Page Viewed to ingestion', reason, 'instant', `v${snapshotVersion}`, finalValues.engaged);
         $('forward-node').classList.add('done');
         setGuide(5);
       }
@@ -130,7 +146,7 @@
       function startNewPage(nextPageIndex, trigger) {
         pageIndex = nextPageIndex; visitNumber += 1;
         pageId = crypto.randomUUID(); insertId = crypto.randomUUID(); startedAt = Date.now();
-        engaged = 0; foreground = 0; total = 0; snapshotVersion = 0; lastSnapshotEngaged = null;
+        engaged = 0; foreground = 0; total = 0; snapshotVersion = 0; lastSnapshot = null;
         finalized = false; lastActivity = performance.now(); lastCheckpoint = performance.now(); lastTick = performance.now();
         addEvent('Create pending Page Viewed', trigger, 'instant', 'original');
         $('segment-node').classList.remove('done');
@@ -145,7 +161,7 @@
       }
       function returnAfterExpiry() {
         if (!finalized) return;
-        startNewPage(0, 'same tab returned after the 2h boundary');
+        startNewPage(0, 'same tab returned after the 3m boundary');
         $('return-after-expiry').hidden = true;
         $('demo-note').textContent = 'Two logical views now exist: visit 1 finalized, visit 2 pending with new IDs.';
         $('holding-service').scrollIntoView({behavior:'smooth', block:'center'});
@@ -164,6 +180,7 @@
         $('guide-status').textContent = `Current · Step ${stage}`;
         $('advance-heartbeat').disabled = stage !== 3;
         $('advance-expiry').disabled = stage !== 4;
+        $('simulate-fallback').disabled = stage !== 4;
         $('simulate-navigation').disabled = stage !== 4;
       }
       function render() {
@@ -173,16 +190,16 @@
         $('engaged').textContent = fmt(engaged); $('service-state').textContent = finalized ? 'FORWARDED' : 'PENDING'; $('window').textContent = (remaining / 1000).toFixed(1);
         $('checkpoint').textContent = finalized ? '—' : fmt(Math.max(0, CHECKPOINT_MS - (now - lastCheckpoint)));
         const expiryRemaining = Math.max(0, EXPIRY_MS - (now - lastActivity));
-        const expiryMinutes = Math.ceil(expiryRemaining / 60000);
-        $('expiration').textContent = finalized ? '—' : expiryRemaining <= 0 ? 'expired' : `${Math.floor(expiryMinutes / 60)}h ${String(expiryMinutes % 60).padStart(2,'0')}m`;
+        const expirySeconds = Math.ceil(expiryRemaining / 1000);
+        $('expiration').textContent = finalized ? '—' : expiryRemaining <= 0 ? 'expired' : `${Math.floor(expirySeconds / 60)}m ${String(expirySeconds % 60).padStart(2,'0')}s`;
         $('query-status').textContent = finalized ? 'Forwarded to ingestion' : 'Pending · not in ingestion yet';
-        $('metric').textContent = finalized ? `${(engaged/1000).toFixed(1)} seconds · final` : lastSnapshotEngaged === null ? 'Not snapshotted yet' : `${(lastSnapshotEngaged/1000).toFixed(1)} seconds · snapshot v${snapshotVersion}`;
+        $('metric').textContent = finalized ? `${(forwarded[0].engaged/1000).toFixed(1)} seconds · final` : lastSnapshot === null ? 'Not snapshotted yet' : `${(lastSnapshot.engaged/1000).toFixed(1)} seconds · snapshot v${snapshotVersion}`;
         $('pending-count').textContent = finalized ? '0 pending events' : '1 pending event';
         $('holding-service').hidden = finalized; $('record-explanation').hidden = finalized; $('service-log').hidden = finalized; $('heartbeat-empty').hidden = !finalized;
         $('page-name').textContent = pageName(); $('page-id-short').textContent = pageId.slice(0, 8); $('event-count').textContent = `${events.length} service update${events.length === 1 ? '' : 's'}`;
         const logicalViews = forwarded.length + (finalized ? 0 : 1);
         $('journey-summary').innerHTML = logicalViews === 1
-          ? finalized ? '<strong>1 logical Page View:</strong> finalized after inactivity.' : '<strong>1 logical Page View:</strong> currently pending.'
+          ? finalized ? `<strong>1 logical Page View:</strong> finalized via ${forwarded[0].reason}.` : '<strong>1 logical Page View:</strong> currently pending.'
           : `<strong>${logicalViews} logical Page Views:</strong> ${forwarded.length} finalized in ingestion + 1 new pending view with different IDs.`;
         $('events').innerHTML = events.slice(0, 8).map(e => `<tr><td>${e.at}</td><td>${e.page}</td><td class="event-name ${e.kind}">${e.operation}</td><td>${e.trigger}</td><td>${fmt(e.engaged)}</td><td>${e.version}</td></tr>`).join('');
         $('aggregates').innerHTML = forwarded.length ? forwarded.map(e => `<tr><td>${e.page}<br><small>page ${e.id.slice(0,8)} · insert ${e.insertId.slice(0,8)}</small></td><td class="event-name">[Amplitude] Page Viewed</td><td>[Amplitude] Engaged Time: ${Math.round(e.engaged)}ms<br><small>Total ${fmt(e.total)} · Foreground ${fmt(e.foreground)} · v${e.snapshotVersion} · ${e.reason}<br>original time ${new Date(e.startedAt).toLocaleTimeString()}</small></td></tr>`).join('') : '<tr><td colspan="3" class="empty">No event until Page Viewed is finalized</td></tr>';
@@ -194,16 +211,17 @@
         if (active && !finalized) engaged += delta;
         if (!active && focused && guideStage === 1) setGuide(2);
         if (now - lastCheckpoint >= CHECKPOINT_MS) checkpoint('15-second cadence');
-        if (!finalized && now - lastActivity >= EXPIRY_MS) finalize('2h inactivity timeout');
+        if (!finalized && now - lastActivity >= EXPIRY_MS) finalize('3m client inactivity timeout');
         render(); requestAnimationFrame(tick);
       }
       document.addEventListener('visibilitychange', () => { focused = !document.hidden; if (focused) activity(); else checkpoint('tab hidden'); });
       window.addEventListener('pagehide', () => finalize('page lifecycle end'));
       document.addEventListener('scroll', () => { if (guideStage === 2) setGuide(3); activity(); }, {passive:true});
       ['mousemove','keydown','touchstart'].forEach(type => document.addEventListener(type, activity, {passive:true}));
-      $('advance-heartbeat').addEventListener('click', () => { checkpoint('simulated +15s'); $('holding-service').scrollIntoView({behavior:'smooth', block:'center'}); });
+      $('advance-heartbeat').addEventListener('click', () => { checkpoint('manual snapshot in simulation'); $('holding-service').scrollIntoView({behavior:'smooth', block:'center'}); });
       $('simulate-navigation').addEventListener('click', navigateToNextPage);
-      $('advance-expiry').addEventListener('click', () => { total += 2 * 60 * 60 * 1000; finalize('2h inactivity timeout'); $('return-after-expiry').hidden = false; $('demo-note').textContent = 'Visit 1 expired. Now simulate the same tab returning at hour three.'; $('ingestion-service').scrollIntoView({behavior:'smooth', block:'center'}); });
+      $('advance-expiry').addEventListener('click', () => { if (finalized) return; total += EXPIRY_MS; finalize('3m client inactivity timeout'); $('return-after-expiry').hidden = false; $('demo-note').textContent = 'The running client finalized Article A after three minutes without engagement.'; $('ingestion-service').scrollIntoView({behavior:'smooth', block:'center'}); });
+      $('simulate-fallback').addEventListener('click', () => { if (finalized) return; total += SERVICE_TIMEOUT_MS; finalize('3m service timeout after last accepted snapshot (delivery timing varies)', true); $('return-after-expiry').hidden = false; $('demo-note').textContent = 'The simulated SDK stopped. The service forwarded its last stored snapshot after the timeout became due; real TTL processing may take longer.'; $('ingestion-service').scrollIntoView({behavior:'smooth', block:'center'}); });
       $('return-after-expiry').addEventListener('click', returnAfterExpiry);
       addEvent('Create pending Page Viewed', 'page load', 'instant', 'original'); $('browser-panel').classList.add('look-here'); requestAnimationFrame(tick);
     })();
